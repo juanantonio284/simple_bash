@@ -1,0 +1,24 @@
+*.html
+*.pdf
+*.xlsx
+*.xls
+# *.png
+*.jpg
+*.jpeg
+*.log
+*.tex.backup
+*.bbl
+*.blg
+*.toc
+*.aux
+*.brf
+*.*.gz
+*.*~
+*~
+*.out
+*.aux
+*.o
+*.so
+*.dll
+* .Rhistory
+srcs/*
