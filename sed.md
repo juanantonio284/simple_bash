@@ -30,7 +30,7 @@ sed s/pig/cow/g file > newfile
 
 ### Delimiting Characters
 
-In the previous example, he `/` characters are used to delimit the new and old strings. You can
+In the previous example, the `/` characters are used to delimit the new and old strings. You can
 choose to use another character, as in:
 
 ```Bash
@@ -204,3 +204,72 @@ sed -e 1,2s/is/are/g infile.txt > outfile.txt # same as above sends to another f
 sed -e 1,2s:is:are:g infile.txt # substitutes all instances of 'is' with `are` in lines 1,2 
 
 ```
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+## Part 3
+
+### Basic Example
+
+[Taken from Shotts, *The Linux Command Line* (Second Internet Edition)]
+
+```Bash
+
+# produce a one-word stream of text using echo and pipe it into sed.
+
+echo "front" | sed 's/front/back/' # s is the command for substitution
+echo "front" | sed 's_front_back_' # delimiter _ instead of /
+echo "front" | sed '1s/front/back/' # address 1 causes the substitution to be performed on the first
+                                    # line of input stream
+echo "front" | sed '2s/front/back/' # this does not work since stream does not have a line 2
+
+```
+
+### `sed` address notation
+
+Addresses may be expressed in many ways. Here are the most common:
+
+|  **Address**  |                                 **Description**                                |
+|:-------------:|:------------------------------------------------------------------------------:|
+|      `n`      |                   A line number where `n` is a positive integer                |
+|      `$`      |                                  The last line                                 |
+|   `/regexp/`  |            Lines matching a POSIX basic regular expression[^note_1]            |
+| `addr1,addr2` |            A range of lines from `addr1` to `addr2`, inclusive[^note_2]        |
+|  `first~step` | Match the line represented by first, then each line at step intervals[^note_3] |
+|   `addr1,+n`  |                      Match `addr1` and the following `n` lines                 |
+|    `addr!`    |        Match all lines except `addr`, which may be any of the forms above      |
+
+
+[^note_1]: Note that the regular expression is delimited by slash characters. Optionally, the
+regular expression may be delimited by an alternate character, by specifying the expression with
+`\cregexpc`, where `c` is the alternate character.
+
+[^note_2]: Addresses may be any of the single address forms above.
+
+[^note_3]: 'first' and 'step' are numbers. For example `1~2` refers to each odd numbered line, `5~5`
+refers to the fifth line and every fifth line thereafter.
+
+### `sed` basic editing commands
+
+|       **Command**       |                   **Description**                                      |
+|:-----------------------:|:----------------------------------------------------------------------:|
+| `=`  |                                 Output current line number                                |
+| `a`  |                             Append text after the current line                            |
+| `d`  |                                  Delete the current line                                  |
+| `i`  |                          Insert text in front of the current line                         |
+| `p`  |                              Print the current line[^note_4]                              |
+| `q`  | Exit sed without processing any more lines. If `-n` is not specified, output current line |
+| `Q`  |                         Exit sed without processing any more lines                        |
+| `s/regexp/replacement/` |      Find regexp and change to replacement[^note_5]                    |
+| `y/set1/set2` | Transliteration (convert characters from set1 to characters in set2)[^note_6]    |
+
+
+[^note_4]: By default, sed prints every line and only edits lines that match a specified address
+within the file. The default behavior can be overridden by specifying the -n option.
+
+[^note_5]: `replacement` may include the special character `&`, which is equivalent to the text
+matched by regexp. In addition, `replacement` may include the sequences `\1` through `\9`, which
+are the contents of the corresponding subexpressions in regexp. 
+<!-- For more about this, see the discussion of back references below. After the trailing slash following replacement, an optional flag may be specified to modify the s command’s behavior. -->
+
+[^note_6]: Note that unlike `tr`, `sed` requires that both sets be of the same length.
