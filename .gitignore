@@ -2,7 +2,8 @@
 *.pdf
 *.xlsx
 *.xls
-# *.png
+*.png
+*.sublime-workspace
 *.jpg
 *.jpeg
 *.log
