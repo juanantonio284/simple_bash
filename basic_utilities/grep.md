@@ -14,62 +14,11 @@ length other than available memory, and it can match arbitrary characters within
 (Since newline is also a separator for the list of patterns, there is no way to match newline
 characters in a text.)
 
-[(Official documentation here)][grep_doc]
+[ (See documentation here) ][grep_doc]
 [grep_doc]: https://www.gnu.org/software/grep/manual/
 
-## Sample Usage
 
-```Bash
-
-# Simplest example
-grep pig file
-# finds three instances of the string "pig" in file:
-# pig
-# dirty pig
-# pig food
-
-# another example
-grep -i -e pig -e dog -r
-# will search all files in the current directory and those below it (`-r`) for the strings
-# (`-e`) "pig" or "dog", ignoring case (`-i`). [see meaning of flags below]
-
-# More examples
-grep "^dog" file # print all lines that start with "dog"
-grep "dog$" file # print all lines that end with "dog"
-grep d[a-p] file # print all lines with a d followed by a character from a to p
-
-# The ps command lists the processes on the system, grep filters out a specific line
-ps | grep TTY
-
-# grep is case sensitive by default. Ignore the case with -i or --ignore-case
-ps | grep -i tty
-
-```
-
-```Bash
-
-# cd to directory where log file is
-cd path/to/directory
-# Download file from https://github.com/dolevf/Black-Hat-Bash/blob/master/ch02/log.txt
-
-# extract any lines containing the IP address 35.237.4.214
-grep "35.237.4.214" log.txt
-
-# the backslash pipe \| acts as an OR condition
-grep "35.237.4.214\|13.66.139.0" log.txt
-
-# instead of \|, you can use -e or --regexp to include various patterns
-grep -e "35.237.4.214" -e "13.66.139.0" log.txt
-
-# EXCLUDE lines containing a certain pattern—i.e. invert the match—with -v or --invert-match
-grep -v "35.237.4.214" log.txt
-
-# print only the matched pattern, and not the entire line where the pattern was found, with -o
-# or --only-matching
-grep -o "35.237.4.214" log.txt
-
-```
-
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## `grep` options
 
 `grep` has many options. Some of the most important are listed in the table below:
@@ -114,29 +63,98 @@ grep -C 3 [pattern] <filename>  Print context of lines (specified number of line
 
 ```
 
-### The `strings` command
-<!-- Content below from -->
-<!-- Chapter 2. File and Text Manipulation Utilities / grep and strings -->
 
-The `strings` command is used to extract all printable character strings found in the file or files
-given as arguments. **It is useful in locating human-readable content embedded in binary files**
-(for text files one can just use grep).
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+## Sample Usage
 
-For example, to search for the string `my_string` in a spreadsheet:
+### Simple Examples
 
 ```Bash
 
-strings book1.xls | grep my_string
+# Simplest example
+grep pig file
+# finds three instances of the string "pig" in file:
+# pig
+# dirty pig
+# pig food
+
+# More examples
+grep "^dog" file # print all lines that start with "dog"
+grep "dog$" file # print all lines that end with "dog"
+grep d[a-p] file # print all lines with a d followed by a character from a to p
 
 ```
 
+### Piping Output and Using Options
 
-<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-# Lab
+```Bash
+
+ps | grep TTY # The ps command lists the processes on the system, grep filters out a specific line
+
+ps | grep -i tty # grep is case sensitive by default. Ignore the case with -i or --ignore-case
+
+grep -i -e pig -e dog -r
+# will search all files in the current directory and those below it (`-r`) for the strings
+# (`-e`) "pig" or "dog", ignoring case (`-i`). [see meaning of flags in next section]
+
+# Pairing `grep` with the `strings` command
+strings book1.xls | grep my_string # search for the string `my_string` in a spreadsheet
+# the `strings` command is used to extract all printable character strings found in the file or
+# files given as arguments. It is useful in locating human-readable content embedded in binary
+# files (for text files one can just use grep).
+
+```
+
+**Using Regular Expressions**
+
+```Bash
+
+cd path/to/directory
+git log | grep Author | grep -oP '(?<=Author: ).*' | sort -u | tr -d '<>'
+
+```
+
+The command above will: 
+
+* use `grep` to search for any lines that start with the word 'Author'
+* pipe the results to another `grep` command to filter anything after the word Author and print
+  only the words that matched. (This leaves us with the Git commit author’s name and email.)
+    - `-o, --only-matching   print only the matched pattern`
+    - `-P, --perl-regexp    Interpret pattern as Perl-compatible regular expressions (PCREs)`
+* `sort` the list and use the -u option to remove any duplicated lines
+* since the email is surrounded by the characters <> by default, we trim these characters by using
+  `tr -d '<>'`
+
+
+### More Examples
+  
+```Bash
+
+# cd to directory where log file is
+cd path/to/directory
+# Download file from https://github.com/dolevf/Black-Hat-Bash/blob/master/ch02/log.txt
+
+# extract any lines containing the IP address 35.237.4.214
+grep "35.237.4.214" log.txt
+
+# the backslash pipe \| acts as an OR condition
+grep "35.237.4.214\|13.66.139.0" log.txt
+
+# instead of \|, you can use -e or --regexp to include various patterns
+grep -e "35.237.4.214" -e "13.66.139.0" log.txt
+
+# EXCLUDE lines containing a certain pattern—i.e. invert the match—with -v or --invert-match
+grep -v "35.237.4.214" log.txt
+
+# print only the matched pattern, and not the entire line where the pattern was found, with -o
+# or --only-matching
+grep -o "35.237.4.214" log.txt
+
+```
+
+### Even More Examples
 <!-- Content below from -->
 <!-- Chapter 1. Essential Command Line Tools, Lab 1.2. Using 'grep' -->
-
 
 ```Bash
 
