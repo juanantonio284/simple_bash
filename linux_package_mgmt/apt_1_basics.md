@@ -42,7 +42,7 @@ All of these commands can be preceded by `apt` or `apt-get` and will behave the 
 * `apt search packagename`: search for a package name in the repositories 
 (same as `apt-cache search packagename`)
 * `apt show packagename`: show information about a package (same as `apt-cache show packagename`) 
-* `apt list option package name`: shows lists of installed or upgradable packages
+* `apt list option packagename`: shows lists of installed or upgradable packages
 * `apt edit-sources`: directly edits the list of repositories that `apt` searches in for packages
 
 ### Installing Applications
