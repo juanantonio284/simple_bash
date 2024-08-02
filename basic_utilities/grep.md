@@ -14,7 +14,8 @@ length other than available memory, and it can match arbitrary characters within
 (Since newline is also a separator for the list of patterns, there is no way to match newline
 characters in a text.)
 
-[See documentation here][grep_doc]
+[(See documentation here)][grep_doc]
+
 [grep_doc]: https://www.gnu.org/software/grep/manual/
 
 
