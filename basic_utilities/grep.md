@@ -14,14 +14,12 @@ length other than available memory, and it can match arbitrary characters within
 (Since newline is also a separator for the list of patterns, there is no way to match newline
 characters in a text.)
 
-[ (See documentation here) ][grep_doc]
+[See documentation here][grep_doc]
 [grep_doc]: https://www.gnu.org/software/grep/manual/
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## `grep` options
-
-`grep` has many options. Some of the most important are listed in the table below:
 
 |  **Option**  |                                  **Meaning**                                  |
 |:------------:|:-----------------------------------------------------------------------------:|
@@ -41,9 +39,9 @@ characters in a text.)
 
 `-e PATTERNS` (or `--regexp=PATTERNS`)
 
-* If these options are used multiple times, or are combined with the  -`f` (`--file`)  option,
+* If these options are used multiple times, or are combined with the  `-f` (`--file`)  option,
   `grep` searches for all patterns given
-* These options can be used to protect a pattern beginning with “`-`”
+* These options can be used to protect a pattern beginning with "`-`"
 * "PATTERNS" shows where the search pattern should be placed
 
 ### Common Combinations
@@ -73,10 +71,7 @@ grep -C 3 [pattern] <filename>  Print context of lines (specified number of line
 
 # Simplest example
 grep pig file
-# finds three instances of the string "pig" in file:
-# pig
-# dirty pig
-# pig food
+# finds three instances of the string "pig" in file: "pig", "dirty pig", and "pig food"
 
 # More examples
 grep "^dog" file # print all lines that start with "dog"
@@ -117,12 +112,12 @@ git log | grep Author | grep -oP '(?<=Author: ).*' | sort -u | tr -d '<>'
 The command above will: 
 
 * use `grep` to search for any lines that start with the word 'Author'
-* pipe the results to another `grep` command to filter anything after the word Author and print
-  only the words that matched. (This leaves us with the Git commit author’s name and email.)
+* pipe the results to another `grep` command to filter anything after the word 'Author' and print
+  only the words that matched (leaves the commit author's name and email.)
     - `-o, --only-matching   print only the matched pattern`
     - `-P, --perl-regexp    Interpret pattern as Perl-compatible regular expressions (PCREs)`
 * `sort` the list and use the -u option to remove any duplicated lines
-* since the email is surrounded by the characters <> by default, we trim these characters by using
+* since the email is surrounded by the characters `<>` by default, we trim these characters by using
   `tr -d '<>'`
 
 
@@ -172,7 +167,8 @@ grep ftp /etc/services | grep tcp
 grep -n ftp /etc/services | grep -v tcp
 # -n, --line-number
 #     Prefix each line of output with the 1-based line number within its input file
-#     ( Notice that this argument is used with the source file, not after the pipe | )
+#     Notice that this argument is used with the source file, not after the pipe |
+#
 # -v, --invert-match
 #     Invert the sense of matching, to select non-matching lines
 
