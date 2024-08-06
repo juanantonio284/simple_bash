@@ -22,7 +22,6 @@ cat file | sed s/pig/cow/ > newfile
 
 # substitute ALL instances of pig to cow
 sed s/pig/cow/g file > newfile
-
 # s stands for "substitute"
 # g stands for "global"
 
@@ -151,13 +150,18 @@ The table below explains some basic operations, where `pattern` is the current s
 | `sed 1,3s/pattern/replace_string/g file` | Substitute all string occurrences in a range of lines |
 | `sed -i s/pattern/replace_string/g file `| Save changes for string substitution in the same file |
  
-`-i is the same as --in-place, edit files in place (save)`
-
 **Caution:**
 
-You must use the `-i` option with care, because the action is not reversible. It is always safer to
-use sed without the `-i` option and then replace the file yourself (i.e. 
-`$ sed s/pattern/replace_string/g file1 > file2` )
+`-i` stands for `--in-place`, edit files in place (save), **not** "case insensitive". You must use
+the `-i` option with care, because the action is not reversible. 
+
+It is always safer to use sed without the `-i` option and then replace the file yourself:
+
+```Bash
+
+sed s/pattern/replace_string/g file1 > file2
+
+```
 
 The above command will replace all occurrences of pattern with `replace_string` in `file1` and move
 the contents to `file2`. The contents of `file2` can be viewed with `cat file2`. If you approve,
