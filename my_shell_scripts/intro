@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Hello World"
+echo $(which neqn) # (ii)
+cat $(which neqn) 
+
+# (ii) uses which to find the location of the bash file neqn and then uses the echo command to print
+# the location to the screen.

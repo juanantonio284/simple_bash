@@ -14,4 +14,7 @@ Notes on some basic utilities for the shell
 * `regex_1.md` contains basic theory on regular expressions and a table that contains operators to
   create the most common expressions
 
+* `run_custom_shell_scripts.md` contains a simple tutorial on how to create and prepare a script so
+  that it runs as a command in the shell
+
 <!-- * The `` folder contains -->
