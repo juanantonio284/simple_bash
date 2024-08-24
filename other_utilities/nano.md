@@ -101,12 +101,12 @@ them by using the `Esc` key.
 ### Nanorc Files
 
 [Nanorc files][nanorc_theory] can be used to configure nano to your liking without using
-command-line options.(But any command-line option overrides its nanorc setting, of course.)
+command-line options. (But any command-line option overrides its nanorc setting, of course.)
 
 A nanorc file can contain set and unset commands for various options 
 (see [Settings][nanorc_settings]). It can also contain commands that define syntax highlighting
-(see Syntax Highlighting) and commands that rebind keys (Rebinding Keys). Each command should be on
-a separate line, and all commands should be written in lowercase.
+and commands that rebind keys. Each command should be on a separate line, and all commands should be
+written in lowercase.
 
 During startup nano normally reads two files: first the system-wide file, `/etc/nanorc` (the exact
 path may be different on your system), and then the user-specific file, either `~/.nanorc` or
