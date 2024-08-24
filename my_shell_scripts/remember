@@ -2,19 +2,29 @@
 
 # remember--An easy command line-based reminder pad
 
-rememberfile="$HOME/.remember"
+rememberfile="$HOME/.remember.md" # The original was just .../.remember
+# added a .md extension to show markdown syntax when file is opened in a text editor
 
+echo -e "\n" | cat >> $rememberfile # .... (i)
+
+# Prompt the user for input and append whatever they write to the rememberfile .....................
 if [ $# -eq 0 ] ; then
-    # Prompt the user for input and append whatever they write to the rememberfile.
     echo "Enter note, end with ^D: "
-    cat - >> $rememberfile # 1 .....
+    cat - >> $rememberfile # .... (ii)
+    
+# Append any arguments passed to the script on to the .remember file ...............................
 else
-    # Append any arguments passed to the script on to the .remember file.
-    echo "$@" >> $rememberfile # 2 .....
-fi # used to close the if statement
+    # right here it would be nice to have an argument like "remember open" to open the file in
+    # a text editor
+    echo "$@" >> $rememberfile # .... (iii)
+
+fi
 
 exit 0
 
-# 1: cat is used to read input
-# 2: if an argument is specified to the script, all arguments are appended as is to the .remember
+# i: insert a blank line before continuing to append text
+
+# ii: - means read from standard input, >> means append to, $rememberfile references the first line
+
+# iii: if an argument is specified to the script, all arguments are appended as is to the .remember
 # file
