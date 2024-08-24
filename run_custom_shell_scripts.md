@@ -183,7 +183,7 @@ argument for `echo`, and `echo` prints the path on the screen. (The third line w
 
 The first line in the file is called the *shebang*. The shebang allows you to define which program
 will be run to interpret the script. Here we set the file as a bash file. You may have seen other
-shebangs, like those for the Perl language (`#!/usr/bin/perl`) or for Ruby(`#!/usr/bin/env ruby`).
+shebangs, like those for the Perl language (`#!/usr/bin/perl`) or for Ruby (`#!/usr/bin/env ruby`).
 
 But, even with this new line added at the top, you still need to **change the file permissions of
 the script to allow execution so you can execute the shell script as if it were a program**:

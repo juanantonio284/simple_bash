@@ -23,3 +23,5 @@
 *.dll
 * .Rhistory
 srcs/*
+
+to_do_in_this_repository.md
