@@ -2,7 +2,13 @@
 
 # remindme--Searches a data file for matching lines or, if no argument is specified, shows the entire contents of the data file which the "remember" command uses
 
-rememberfile="$HOME/.remember"
+rememberfile="$HOME/.remember.md"
+# added a .md extension to show markdown syntax when file is opened in a text editor
+# original line was just .../.remember
+
+# can the two commands (remember and remind me) be tied together to where they share the line above 
+# (taken from the remember command)? That way it would not be necessary to put the file name in 
+# this file??
 
 if [ ! -f $rememberfile ] ; then
     echo "$0: You don't seem to have a .remember file. " >&2
@@ -12,15 +18,16 @@ fi
 
 if [ $# -eq 0 ] ; then
     # Display the whole rememberfile when not given any search criteria.
-    more $rememberfile # 3 .....
+    more $rememberfile # .... (i) 
+    # right here it would be nice to have an argument like "remindme open" to open the remember file # in a text editor (would be better if that line was a wrapper for "remember open")
 else
     # Otherwise, search through the file for the given terms, and display the results neatly.
-    grep -i -- "$@" $rememberfile | ${PAGER:-more} # 4 .....
+    grep -i -- "$@" $rememberfile | ${PAGER:-more} # .... (ii)
 fi
 
 exit 0
 
-# 3: the "more" utility is used to allow paging through the rememberfile
+# i: the "more" utility is used to allow paging through the rememberfile
 
-# 4: if arguments are passed to the script, we perform a case‑insensitive grep to search for any
+# ii: if arguments are passed to the script, we perform a case‑insensitive grep to search for any
 # matching terms in the rememberfile, and then display these results with paging as well.
