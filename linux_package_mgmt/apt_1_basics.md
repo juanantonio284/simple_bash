@@ -1,12 +1,12 @@
 # `dpkg`, `apt`, `apt-get`
 
-## Difference between utilities
+**Difference between utilities**
 
-The package that really performs the installation is called `dpkg` (`dpkg` is the low-level
-background application). The `apt-get` command is a full-featured but simplified interface to
-`dpkg`, and `apt` is a more user-friendly but slightly stripped-back version of `apt-get`.
+`dpkg` is the package that really performs the installation, i.e. the low-level background
+application. The `apt-get` command is a full-featured but simplified interface to `dpkg`. `apt` is
+a more user-friendly but slightly stripped-back version of `apt-get`.
 
-But `apt-get` and `apt` provide more than just an easy interface to `dpkg`. They do things that
+But `apt-get` and `apt` provide more than just an easy interface to `dpkg`; they do things that
 `dpkg` doesn't do. They will retrieve files from repositories and will try to assist with missing
 dependencies and conflicts.
 
@@ -14,6 +14,21 @@ In turn, the `apt` command does some things `apt-get` doesn't. It provides more 
 type the average user wants to see during an installation and suppresses some of the more obscure
 information that `apt-get` displays. `apt` gives superior visual feedback and uses color highlights
 and progress bars in the terminal window.
+
+From [debian wiki][wiki]: 
+
+"APT" may refer to:
+
+* The Advanced Package Tool (or APT), the main command-line package manager for Debian and its
+  derivatives. It provides command-line tools for searching, managing and querying information
+  about packages, as well as low-level access to all features provided by the libapt-pkg and
+  libapt-inst libraries.
+
+* The apt package, providing, among others, the apt management tool, a high-level command-line
+  interface for better interactive usage. 
+  
+[In general, the commands below deal with the `apt` management tool, a high-level command-line
+interface for better interactive usage.]
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
@@ -28,7 +43,7 @@ All of these commands can be preceded by `apt` or `apt-get` and will behave the 
 * `update`: update the list of available packages
 * `upgrade`: upgrade all packages
 * `autoremove`: remove libraries and other packages that are no longer required
-* `apt full-upgrade` upgrades the operating system (replaces the `apt-get dist-upgrade` option)
+* `apt full-upgrade`: upgrades the operating system (replaces the `apt-get dist-upgrade` option)
 
 **Basic Package Operations**
 
@@ -40,16 +55,45 @@ All of these commands can be preceded by `apt` or `apt-get` and will behave the 
 **Get information**
 
 * `apt search packagename`: search for a package name in the repositories 
-(same as `apt-cache search packagename`)
-* `apt show packagename`: show information about a package (same as `apt-cache show packagename`) 
+* `apt show packagename`: show information about a package
 * `apt list option packagename`: shows lists of installed or upgradable packages
-* `apt edit-sources`: directly edits the list of repositories that `apt` searches in for packages
+* `apt edit-sources`: directly edits the list of repositories where `apt` searches for packages
 
+**See installed applications**
+
+* `apt list --installed | grep -i package-name`: find packages of interest
+* `apt list --installed`: see the list of applications installed on your computer
+* `apt list --installed > apt_list_installed.txt`: output the list of installed applications to a file
+
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+### View Installed Applications
+
+```Bash
+
+# See the list of applications installed on your computer
+apt list --installed
+
+# Output the list of installed applications to a file
+apt list --installed > apt_list_installed.txt
+
+# To find packages of interest, use grep and part of the name or topic of interest
+apt list --installed | grep -i python
+
+# See if any of the installed applications can be upgraded:
+apt list --upgradable    # seems to also take the word 'upgradeable'
+
+# Count how many packages are installed by counting lines in the list
+apt list --installed | wc --lines
+
+```
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ### Installing Applications
 
-#### 1. `search`
+#### `search` for a package
 
-See whether a package exists in the repositoriesusing `search`. For example, say you want to
+See whether a package exists in the repositories using `search`. For example, say you want to
 install [Scribus][] but you don't know the package name; first you might try looking
 for "scribus-desktop". 
 
@@ -60,7 +104,7 @@ apt search scribus-desktop
 
 ```
 
-That search didn't find anything. We'll try again with a shorter, more generic, search clue.
+That search didn't find anything; try again with a more generic name.
 
 ```Bash
 
@@ -99,7 +143,7 @@ scribus-template/jammy,jammy 1.2.4.1-5 all
 
 `scribus` seems to be the right option ("jammy" is the name of the distribution of the OS) 
 
-#### 2. `show`
+#### `show` information about a package
 
 The `show` command gives many details, including a description of the program (it also suggests
 other packages that might be required, depending on our needs).
@@ -123,33 +167,11 @@ posters to technical documentation.
 
 ```
 
-#### 3. `install`
+#### `install`
 
 ```Bash
 
 sudo apt install scribus
-
-```
-
-<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-### View Installed Applications
-
-```Bash
-
-# See the list of applications installed on your computer
-apt list --installed
-
-# Output the list of installed applications to a file
-apt list --installed > apt_list_installed.txt
-
-# Count how many packages are installed by counting lines in the list
-apt list --installed | wc --lines
-
-# To find packages of interest, use grep and part of the name or topic of interest
-apt list --installed | grep python
-
-# See if any of the installed applications can be upgraded:
-apt list --upgradable    # seems to also take the word 'upgradeable'
 
 ```
 
@@ -206,6 +228,8 @@ sudo apt edit-sources
 
 ```
 
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## References
 
 https://www.howtogeek.com/791055/apt-vs-apt-get-whats-the-difference-on-linux/
@@ -213,3 +237,25 @@ https://www.howtogeek.com/791055/apt-vs-apt-get-whats-the-difference-on-linux/
 https://www.howtogeek.com/229699/how-to-uninstall-software-using-the-command-line-in-linux/
 
 [Scribus]: https://www.scribus.net/
+[wiki]: https://wiki.debian.org/Apt
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+
+## Further reading
+<!-- update this guide using these -->
+
+<!-- this first link seems to have the best information on the interface -->
+https://www.debian.org/doc/manuals/apt-guide/ch4.en.html
+
+<!-- sos -->
+https://adamtheautomator.com/ubuntu-apt-get/
+
+https://itsfoss.com/apt-get-linux-guide/
+
+https://itsfoss.com/apt-command-guide/
+
+<!-- consider this: -->
+
+<!-- sudo apt update: When there is no package version update, you’ll see a note that says Hit. Otherwise, you’ll see a note saying Get, and the command downloads the package information (not the total package). When there is an error in retrieving the package information, it shows ign. -->
+
