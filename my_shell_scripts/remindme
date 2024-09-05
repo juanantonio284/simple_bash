@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# remindme--Searches a data file for matching lines or, if no argument is specified, shows the entire contents of the data file which the "remember" command uses
+# remindme--Searches a data file for matching lines or, if no argument is specified, shows the
+# entire contents of the data file which the "remember" command uses
 
-rememberfile="$HOME/.remember.md"
-# added a .md extension to show markdown syntax when file is opened in a text editor
-# original line was just .../.remember
+# rememberfile="$HOME/.remember" # original
+rememberfile="$HOME/.remember.md" # show markdown syntax when file is opened in a text editor
 
 # can the two commands (remember and remind me) be tied together to where they share the line above 
 # (taken from the remember command)? That way it would not be necessary to put the file name in 
