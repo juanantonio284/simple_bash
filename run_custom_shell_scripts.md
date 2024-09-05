@@ -7,6 +7,7 @@
 ```Bash
 
 #!/bin/bash
+
 echo "Hello World"
 # the name of this script would be "helloworld" (.sh extension is optional)
 
@@ -209,12 +210,13 @@ print the contents of `neqn` to the screen. Open a text editor and enter the cod
 ```Bash
 
 #!/bin/bash
+
 echo "Hello World"
-echo $(which neqn) # ..... (i)
+echo $(which neqn) # .... (i)
 cat $(which neqn) 
 
 # (i): which is used to find the location of the bash file neqn; then the echo command is used to
-#      print the location to the screen.
+#      print the location to the screen
 
 ```
 

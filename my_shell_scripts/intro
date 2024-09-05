@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo "Hello World"
-echo $(which neqn) # (ii)
+echo $(which neqn) # .... (i)
 cat $(which neqn) 
 
-# (ii) uses which to find the location of the bash file neqn and then uses the echo command to print
-# the location to the screen.
+# (i): which is used to find the location of the bash file neqn; then the echo command is used to
+#      print the location to the screen.
