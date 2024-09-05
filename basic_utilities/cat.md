@@ -94,6 +94,18 @@ This is another line
 
 ```
 
+**In a script context**
+
+```Bash
+
+echo -e "\n" | cat >> file_1.txt # .... (i)
+cat - >> file_1.txt              # .... (ii)
+
+# i: insert a blank line before continuing to append text
+# ii: the symbol - means read from standard input, >> means append to
+
+```
+
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## References
