@@ -5,4 +5,4 @@ echo $(which neqn) # .... (i)
 cat $(which neqn) 
 
 # (i): which is used to find the location of the bash file neqn; then the echo command is used to
-#      print the location to the screen.
+#      print the location to the screen
