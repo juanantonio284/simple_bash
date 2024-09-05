@@ -1,13 +1,59 @@
-# Preparing Your Computer To Run Custom Shell Scripts
+# How To Run Custom Shell Scripts
 
+## TLDR
+
+1. Create a script that starts with the `shebang`
+
+```Bash
+
+#!/bin/bash
+echo "Hello World"
+# the name of this script would be "helloworld" (.sh extension is optional)
+
+```
+
+2. Change mode of file to "executable" with the `+x` argument
+
+```Bash
+
+chmod +x ~/path/to/scripts/helloworld
+# this allows executing the shell script as if it were a program
+# make sure script file has the shebang #!/bin/bash
+
+```
+
+3. Open the login script file and add a path to your scripts directory
+
+* Open the `.bashrc` file in a text editor 
+
+```Bash
+
+subl -n ~/.bashrc # (make sure .bashrc is the correct login script file for your system)
+
+```
+
+* Add the line below to the top of the file (do not run this in terminal)
+
+```Bash
+
+export PATH="/path/to/scripts/:$PATH" 
+# note the syntax:
+# * the quote (") opens, then the path follows, then instead of a closing quote there is :$PATH and
+#   then the quote closes 
+# * the path ends in /
+
+```
+
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Preliminaries
 
-### The PATH variable
+### The `PATH` variable
 
 The directories where bash will search for standard commands are stored in an environment variable
-called PATH. 
+called `PATH`. 
 
-**Printing the current PATH environment variable**
+**Printing the current `PATH` environment variable**
 
 ```Bash
 
@@ -23,10 +69,12 @@ The directories in this output are separated from one another by a colon (`:`). 
 directories that bash will check when you ask it to run a program or command. If your command is
 not stored in any of these directories, bash cannot run it. 
 
-If you move a script file to one of the directories listed by the `echo $PATH` command and the
-command will run. (You can also add a directory where you would like bash to search for scripts.)
+If you move a script file to one of the directories listed by the `echo $PATH` command the command
+will run. (You can also add a directory where you would like bash to search for scripts.)
 
 *Note for my computer*:
+
+This is the value of my `PATH` variable, separated in lines to understand better.
 
 ```
 
@@ -55,12 +103,12 @@ that it adds these paths to the search
 
 ### The `which` command
 
-Note that bash will check these directories in the order they appear in the PATH variable. This
+Note that bash will check these directories in the order they appear in the `PATH` variable. This
 order is important because it may make a difference if you have two commands of the same name in
-two directories in your PATH variable. 
+two directories in your `PATH` variable. 
 
-If you're having trouble finding a particular command, you can use the `which` command with the name
-of that command to see its path:
+If you're having trouble finding a particular command, `which` is a useful tool for debugging a
+broken or weird `PATH` variable: 
 
 ```Bash
 
@@ -72,17 +120,15 @@ which touch
 which echo
 # /usr/bin/echo
 
-# (/usr/bin is a directory right at the computer level, before you get to /home/user_name)
+# Note: /usr/bin is a directory right at the computer level, before you get to /home/user_name
 
 ```
-
-`which` is a useful tool for debugging a broken or weird PATH.
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Configuring Your Login Script
 
-You can configure your PATH variable so that your custom scripts are automatically callable, just
+You can configure your `PATH` variable so that your custom scripts are automatically callable, just
 like any other command, when you start a new command shell. 
 
 When you open a command shell, the first thing it does is read a login script in your home
@@ -94,15 +140,14 @@ system.
 
 One way to find out which of these files is the login script on your system is to open each file and
 add a line like the following:  
-`echo this is the .bashrc login script`. Then open a terminal and you will see a line at the top
+`echo this is the .bashrc login script`; then open a terminal and you will see a line at the top
 that displays the text you entered (thus letting you know which login script is loaded in your
 system).
 
 *Note for my computer*:
 
-Could not find `~/.login`, `~/.bash_profile` or `~/.bash_login`.
-
-Found these two, with the attached notes:
+Could not find `~/.login`, `~/.bash_profile` or `~/.bash_login`. Found the two below, with those
+notes inside.
 
 ```
 
@@ -118,32 +163,33 @@ Found these two, with the attached notes:
 
 ### Adding a path to your scripts directory
 
-You can alter the login script so it configures your PATH variable with other directories. For
-example, the login script might have a line like  
-`export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting`
+You can alter the login script so it configures your `PATH` variable with other directories. 
 
-This assigns a new value to PATH that allows the local RVM installation[^note_ruby] to manage any
-installed Ruby versions. The `.bashrc` file sets the customized PATH every time a new command shell
+For example, the login script might have a line like  `export PATH="$PATH:$HOME/.rvm/bin" # Add RVM
+to PATH for scripting`. (This would assign a new value to `PATH` that allows the local RVM
+installation[^note_ruby] to manage any installed Ruby versions.) 
+
+The `.bashrc` file sets the customized `PATH` every time a new command shell
 is opened and your system will add this path to its search list when looking for commands.
 
 You can implement a similar customization to make your shell scripts available by default: 
 
 1. create a directory to save all your shell scripts in
 
-2. add this directory to PATH in your login file to reference your new scripts more easily. To do
-this, open the login script file in your text editor and add the line below to the top of the
+2. add this directory to `PATH` in your login file to reference your new scripts more easily. To do
+this, **open the login script file in your text editor** and add the line below to the top of the
 file:
 
 ```Bash
 
+# do not run line below in terminal
+# open the login script file in your text editor and add the line below to the top of the file 
 export PATH="/path/to/scripts/:$PATH"
 
 # note the syntax:
 # * the quote (") opens, then the path follows, then instead of a closing quote there is :$PATH and
 #   then the quote closes 
 # * the path ends in /
-
-export PATH="~/Development/simple_bash/my_shell_scripts/:$PATH"
 
 ```
 
@@ -152,23 +198,23 @@ command in the shell.
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-## Test Script
+## Preparing a script to run as a program
+
+### Sample script
 
 This script will print `Hello World` followed by the file path of the `neqn` shell script, a shell
-script that should be in your bash files by default. Then it will use this path to print the
-contents of `neqn` to the screen[^note_neqn]. 
-
-Open a text editor and enter the code below:
+script that should be in your bash files by default[^note_neqn]. Then it will use this path to
+print the contents of `neqn` to the screen. Open a text editor and enter the code below:
 
 ```Bash
 
 #!/bin/bash
 echo "Hello World"
-echo $(which neqn) # (ii)
+echo $(which neqn) # ..... (i)
 cat $(which neqn) 
 
-# (ii) uses which to find the location of the bash file neqn and then uses the echo command to print
-# the location to the screen.
+# (i): which is used to find the location of the bash file neqn; then the echo command is used to
+#      print the location to the screen.
 
 ```
 
@@ -181,26 +227,38 @@ second command and store the output for use by the first command. Here, the subs
 `which` command, which returns the full path to the `neqn` script. This path is then used as the
 argument for `echo`, and `echo` prints the path on the screen. (The third line works similarly.)
 
-The first line in the file is called the *shebang*. The shebang allows you to define which program
-will be run to interpret the script. Here we set the file as a bash file. You may have seen other
-shebangs, like those for the Perl language (`#!/usr/bin/perl`) or for Ruby (`#!/usr/bin/env ruby`).
+The first line in the example (`#!/bin/bash`) is called the **shebang** and it allows you to define
+which program will be run to interpret the script.[^note_shebang] But, even with this new line
+added at the top, you need to change the file permissions of the script to allow execution so you
+can execute the shell script as if it were a program:
 
-But, even with this new line added at the top, you still need to **change the file permissions of
-the script to allow execution so you can execute the shell script as if it were a program**:
+### Change file permissions
 
 ```Bash
 
 chmod +x ~/Development/simple_bash/my_shell_scripts/intro
 # change mode of file to "executable" with the +x argument
+# this allows executing the shell script as if it were a program
+# make sure script file has the shebang #!/bin/bash
 
 ```
 
+**Run**
+
+Now you can open a terminal and run the script by typing `intro`.
 
 
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 
-[^note_ruby]: Ruby version manager
+[^note_ruby]: 
+Ruby version manager
 
-[^note_neqn]: The contents of `neqn` aren't important at the moment; this is just being used as an
-example script.
+[^note_neqn]: 
+The contents of `neqn` aren't important at the moment; this is just being used as an example
+script.
 
 [stack_login_shell]: https://unix.stackexchange.com/questions/38175/difference-between-login-shell-and-non-login-shell
+
+[^note_shebang]: 
+We generally set the file as a bash file but you may have seen other shebangs, like those for the
+Perl language(`#!/usr/bin/perl`) or for Ruby (`#!/usr/bin/env ruby`).
