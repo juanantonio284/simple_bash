@@ -1,8 +1,8 @@
 # simple_bash
 Notes on some basic utilities for the shell
 
-* The `basic_utilities` folder contains detailed tutorials on the following BASH utilities:
-  `awk` `grep`, `sed`, `cat`
+* The `basic_utilities` folder contains tutorials on the following BASH utilities:
+  `awk` `grep`, `sed`, `cat`, `shred`
   
 * The `other_utilities` folder contains notes on: `gs`(ghostscript), `nano`, `gpg` (GNU privacy
   guard) for encryption
