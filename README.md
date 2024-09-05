@@ -1,20 +1,26 @@
 # simple_bash
 Notes on some basic utilities for the shell
 
-* The `basic_utilities` folder contains tutorials on the following BASH utilities:
-  `awk` `grep`, `sed`, `cat`, `shred`
+## Folders
+
+* `basic_utilities` contains tutorials on the following BASH utilities: `awk` `grep`, `sed`, `cat`,
+  `shred`
   
-* The `other_utilities` folder contains notes on: `gs`(ghostscript), `nano`, `gpg` (GNU privacy
-  guard) for encryption
+* `other_utilities` contains notes on: `gs`(ghostscript), `gpg` (GNU privacy guard), `nano`
   
-* The `linux_package_mgmt` folder contains some basic theory on package management in Linux
-  (how programs are installed) and a tutorial on using the `apt` utility for some common tasks like
-  installing, uninstalling, and updating
+* `linux_package_mgmt` contains: 
+    - `theory.md`, basic package management in Linux (how programs are installed)
+    - `apt_1_basics.md`, a basic tutorial on the `apt` utility for common tasks like installing,
+      uninstalling, and updating
 
-* `regex_1.md` contains basic theory on regular expressions and a table that contains operators to
-  create the most common expressions
+* `my_shell_scripts` contains: 
+    - `remember`, a "notepad" script
+    - `remindme`, a script to read the notes made with `remember`
 
-* `run_custom_shell_scripts.md` contains a simple tutorial on how to create and prepare a script so
-  that it runs as a command in the shell (see `my_shell_scripts` folder for some sample scripts)
+## Single files
 
-<!-- * The `` folder contains -->
+* `regex_1.md`: basic theory on regular expressions and a table listing operators to create the most
+  common expressions
+
+* `run_custom_shell_scripts.md`: a tutorial on how to create and prepare a script so that it runs as
+  a command in the shell
