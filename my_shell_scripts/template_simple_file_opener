@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# this script serves to open many pre-selected files by typing "file_opener" (or something of your
+# choice) as a command in the terminal
+
+# If you have files you work with on a regular basis, creating and using this script might save a
+# lot of time
+
+printf "..............................\n"
+printf "template simple file opener \n\n"
+
+subl --new-window # opens a new window of sublime text where all the files below will open
+
+cd ~/directory_1
+# open . # uncomment if you want to open directory_1
+open to_do_list.txt
+open scratch_notes.txt
+open secret_codes.txt
+
+# .......................
+# cd ~/directory_2
+# open .
+# open file_1.txt
+# open file_2.txt
+# open file_3.txt

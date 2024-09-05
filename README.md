@@ -16,6 +16,8 @@ Notes on some basic utilities for the shell
 * `my_shell_scripts` contains: 
     - `remember`, a "notepad" script
     - `remindme`, a script to read the notes made with `remember`
+    - `template_simple_file_opener`, a script to open commonly used files with a single command on
+      the terminal
 
 ## Single files
 
