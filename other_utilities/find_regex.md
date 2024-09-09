@@ -6,10 +6,6 @@ For example, to match a file named `./fubar3`, you can use the regular expressio
 `.*b.*3`, but not `f.*r3` (because there is no path that starts with '`f`', they always start with
 `./`).[^note_regextype]
 
-[^note_regextype]: 
-The regular expressions understood by `find` are by default Emacs Regular Expressions (except that
-`.` matches newline), but this can be changed with the `-regextype` option.
-
 ## TLDR
 
 ```Bash
@@ -227,3 +223,8 @@ find ./ -type f -regex '.*[Ff].*' # FLAWED
 
 * https://www.man7.org/linux/man-pages/man1/find.1.html
 * https://linuxhandbook.com/find-with-regex/
+
+
+[^note_regextype]: The regular expressions understood by `find` are by default Emacs Regular
+Expressions (except that `.` matches newline), but this can be changed with the `-regextype`
+option.
