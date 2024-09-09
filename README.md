@@ -21,6 +21,8 @@ Notes on some basic utilities for the shell
 
 ## Single files
 
+* `bash_history_usage.md`: basic usage of the bash history
+
 * `regex_1.md`: basic theory on regular expressions and a table listing operators to create the most
   common expressions
 
