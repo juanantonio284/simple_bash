@@ -6,7 +6,7 @@ Notes on some basic utilities for the shell
 * `basic_utilities` contains tutorials on the following BASH utilities: `awk` `grep`, `sed`, `cat`,
   `shred`
   
-* `other_utilities` contains notes on: `gs`(ghostscript), `gpg` (GNU privacy guard), `nano`
+* `other_utilities` contains notes on: `gs`(ghostscript), `gpg` (GNU privacy guard), `nano`, `find`
   
 * `linux_package_mgmt` contains: 
     - `theory.md`, basic package management in Linux (how programs are installed)
