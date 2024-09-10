@@ -1,4 +1,4 @@
-# Encrypting files with GPG (GNU Privacy Guard)
+# Encrypting files with `gpg` (GNU Privacy Guard)
 
 ## TLDR
 
