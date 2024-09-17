@@ -2,28 +2,9 @@
 
 ## TLDR
 
-1. Create a script that starts with the `shebang`
-
-```Bash
-
-#!/bin/bash
-
-echo "Hello World"
-# the name of this script would be "helloworld" (.sh extension is optional)
-
-```
-
-2. Change mode of file to "executable" with the `+x` argument
-
-```Bash
-
-chmod +x ~/path/to/scripts/helloworld
-# this allows executing the shell script as if it were a program
-# make sure script file has the shebang #!/bin/bash
-
-```
-
-3. Open the login script file and add a path to your scripts directory
+**1. Open the login script file and add a path to your scripts directory**  
+(This only needs to be done once, when you first create a scripts directory; you may skip this step
+in the future)
 
 * Open the `.bashrc` file in a text editor 
 
@@ -42,6 +23,27 @@ export PATH="/path/to/scripts/:$PATH"
 # * the quote (") opens, then the path follows, then instead of a closing quote there is :$PATH and
 #   then the quote closes 
 # * the path ends in /
+
+```
+
+**2. Create a script that starts with the `shebang`**
+
+```Bash
+
+#!/bin/bash
+
+echo "Hello World"
+# the name of this script would be "helloworld" (.sh extension is optional)
+
+```
+
+**3. Change mode of file to "executable" with the `+x` argument**
+
+```Bash
+
+chmod +x ~/path/to/scripts/helloworld
+# this allows executing the shell script as if it were a program
+# make sure script file has the shebang #!/bin/bash
 
 ```
 
