@@ -30,3 +30,7 @@ Notes on some basic utilities for the shell
     - `remindme`, a script to read the notes made with `remember`
     - `template_simple_file_opener`, a script to open commonly used files with a single command on
       the terminal
+    - `shrinkpdf`: a simple wrapper around Ghostscript to reduce the file size of PDFs; written by
+      Alfred Klomp. [See usage instructions here][shrinkpdf_link]!!
+
+[shrinkpdf_link]: https://github.com/aklomp/shrinkpdf
