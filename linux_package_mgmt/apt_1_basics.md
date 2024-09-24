@@ -315,12 +315,15 @@ apt searches for packages. Only do this if you
 
 ```Bash
 
-sudo apt edit-sources
+sudo apt edit-sources # opens /etc/apt/sources.list file in terminal
+
+subl -n /etc/apt/sources.list # opens the file in sublime text editor
 
 ```
 
-The command above will open the `/etc/apt/sources.list` text file in the terminal. (If you double
-click the file on Ubuntu, it opens a graphical `Software & Update` settings interface)
+If you double click the file `/etc/apt/sources.list` on Ubuntu, it opens a graphical `Software &
+Update` settings interface. If you type `open /etc/apt/sources.list` in the terminal it will also
+open the graphical interface.
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
