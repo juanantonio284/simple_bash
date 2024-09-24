@@ -252,6 +252,40 @@ chmod +x ~/Development/simple_bash/my_shell_scripts/intro
 Now you can open a terminal and run the script by typing `intro`.
 
 
+### Debugging
+
+**`-n`**
+
+An easy way to check for errors early is by using the `-n` parameter when running a script:
+`$ bash -n script.sh`
+
+This parameter will read the commands in the script but won’t execute them, so any syntax errors
+that exist will be shown onscreen. You can think of `-n` as a dry-run method to test the validity
+of your syntax.
+
+**`-x`**
+
+You can also use the `-x` parameter to turn on verbose mode, which lets you see commands being
+executed and will help you debug issues as the script executes in real time: `$ bash -x script.sh`
+
+If you want to start debugging at a given point in the script, include the `set` command in the
+script itself.
+
+```Bash
+
+#!/bin/bash
+set -x
+--snip--
+set +x
+
+```
+
+You can think of set as a valve that turns a certain option on and off. In this example, the first
+command sets the debugging mode (set -x), while the last command (set +x) disables it. By using
+set, you can avoid generating a massive amount of noise in your terminal when your script is large
+and contains a specific problem area.
+
+
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 
 [^note_ruby]: 
