@@ -12,9 +12,9 @@ For example, to match a file named `./fubar3`, you can use the regular expressio
 
 # Look for certain file extensions
 cd path/to/directory
-find ./ -type f -regex ".*\.\(txt\|md\)"         # .... (i)
-find ./ -type f -regex "\.\/.*\/.*\.\(txt\|md\)" # .... (ii)
-find ./ -type f -regex "\.\/.*\/.*\.txt"         # .... (iii)
+find -type f -regex ".*\.\(txt\|md\)"         # .... (i)
+find -type f -regex "\.\/.*\/.*\.\(txt\|md\)" # .... (ii)
+find -type f -regex "\.\/.*\/.*\.txt"         # .... (iii)
 
 # (i) Match for files with .txt or .md in their name at all levels including current directory
 # (ii) Match for files with .txt or .md in their name at all subdirectory levels but NOT current dir
@@ -25,10 +25,10 @@ find ./ -type f -regex "\.\/.*\/.*\.txt"         # .... (iii)
 ```Bash
 
 # Look for file names
-find ./ -type f -regex ".*[Tt]inker.*"
-find ./ -type f -iregex ".*tinker.*" # case insensitive regex
+find -type f -regex ".*[Tt]inker.*"
+find -type f -iregex ".*tinker.*" # case insensitive regex
 
-find ./ -type f -iregex ".*tinker.*" | sed 's/\(\.\/folder_name_1\/Folder_name_2\/\)/...\//'
+find -type f -iregex ".*tinker.*" | sed 's/\(\.\/folder_name_1\/Folder_name_2\/\)/...\//'
 # sed will remove /folder_name_1/folder_name_2/ from the output and substitute with ... 
 
 ```
@@ -50,7 +50,7 @@ Given a directory with the following content
 
 cd path/to/directory
 
-find ./ -type f -regex ".*\.\(txt\|md\)" # .... (i)
+find -type f -regex ".*\.\(txt\|md\)" # .... (i)
 
 ```
 
@@ -82,8 +82,8 @@ You can see some files at current directory level, e.g. `./File_1.txt`
 
 ```Bash
 
-find ./ -type f -regex "\.\/.*\/.*\.\(txt\|md\)" # .... (ii)
-find ./ -type f -regex "        .*\.\(txt\|md\)" # .... previous example (i) adapted for comparison
+find -type f -regex "\.\/.*\/.*\.\(txt\|md\)" # .... (ii)
+find -type f -regex "        .*\.\(txt\|md\)" # .... previous example (i) adapted for comparison
 
 ```
 
@@ -114,7 +114,7 @@ To aid understanding see code below. It is the same as (ii) but only looking for
 
 ```Bash
 
-find ./ -type f -regex "\.\/.*\/.*\.txt" # .... (iii)
+find -type f -regex "\.\/.*\/.*\.txt" # .... (iii)
 
 ```
 
@@ -128,8 +128,8 @@ find ./ -type f -regex "\.\/.*\/.*\.txt" # .... (iii)
 
 # look for a file with 'tinker' or 'Tinker' in its name (preceded or followed by any character)
 
-find ./ -type f -regex ".*[Tt]inker.*"
-find ./ -type f -iregex ".*tinker.*" # case insensitive regex
+find -type f -regex ".*[Tt]inker.*"
+find -type f -iregex ".*tinker.*" # case insensitive regex
 
 ```
 
@@ -138,7 +138,7 @@ find ./ -type f -iregex ".*tinker.*" # case insensitive regex
 ```Bash
 
 # sed will remove /folder_name_1/folder_name_2/ from the output and substitute with ... 
-find ./ -type f -iregex ".*tinker.*" | sed 's/\(\.\/folder_name_1\/Folder_name_2\/\)/...\//'
+find -type f -iregex ".*tinker.*" | sed 's/\(\.\/folder_name_1\/Folder_name_2\/\)/...\//'
 
 ```
 
@@ -163,7 +163,7 @@ find ./ -type f -iregex ".*tinker.*" | sed 's/\(\.\/folder_name_1\/Folder_name_2
 #      note that "\/[Ff]" places a slash before the F, this is the way we ensure that F is at the
 #      start of the file name
 
-find ./ -type f -regex '\.\/[Ff].*' # search only in current directory
+find -type f -regex '\.\/[Ff].*' # search only in current directory
 # "\.\/" is parsed as . escaped (\.), next to a / escaped (\/)
 #        all this serves to pass the letters "./" at the start of the file name 
 #        (file names that start with "./" are in the current directory)
@@ -177,7 +177,7 @@ find ./ -type f -regex '\.\/[Ff].*' # search only in current directory
 
 # ................................................
 
-find ./ -type f -regex '\.\/[^/]*\/[Ff][^/]*' # search only in first subdirectory level
+find -type f -regex '\.\/[^/]*\/[Ff][^/]*' # search only in first subdirectory level
 # the components are "\.\/", "[^/]*", "\/", "[Ff]", and "[^/]*"
 # "[^/]*" means negation ([^) of slash (/) zero or more times (*)
 #         In this line, it's used to say "any character except a slash" (might help to think of it
@@ -194,7 +194,7 @@ find ./ -type f -regex '\.\/[^/]*\/[Ff][^/]*' # search only in first subdirector
 
 # ................................................
 
-find ./ -type f -regex '\.\/.*\/[Ff].*' # search at all subdirectory levels but NOT at CD level
+find -type f -regex '\.\/.*\/[Ff].*' # search at all subdirectory levels but NOT at CD level
 # the components are "\.\/", ".*", "\/", "[Ff]", and "[^/]*"
 # ".*\/" means "at least one slash" aside from the first one to ask for CD, this puts you at subdir 
 #        level. In other words the combination of ".*" and "\/" means you are looking for a slash
@@ -210,7 +210,7 @@ find ./ -type f -regex '\.\/.*\/[Ff].*' # search at all subdirectory levels but 
 
 # ................................................
 
-find ./ -type f -regex '.*[Ff].*' # FLAWED
+find -type f -regex '.*[Ff].*' # FLAWED
 # Finds Ff at any point in the path, not just at the start of the file
 # .*, at the beginning means any character zero or more times, which means that it could be any
 #     number of slashes (file names that have many slashes preceding it are in subdirectories)
