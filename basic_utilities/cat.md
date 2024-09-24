@@ -54,6 +54,8 @@ cat file_1.txt file_2.txt
 cat -n file_1.txt file_2.txt # number all output lines
                              # option -b will number all nonempty output lines
 
+cat /etc/os-release # displays contents of the /etc/os-release text file 
+
 ```
 
 ### 3. Send the contents of multiple files into another file
