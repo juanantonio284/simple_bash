@@ -22,22 +22,27 @@ given order and performs the requested action.
 
 **Look at passwd file**
 
-The `passwd` command changes passwords for user accounts. `/etc/passwd` is "the password file" and
-contains one line for each user account, with seven fields delimited by colons (`:`). These fields
-are: `login name`, `optional encrypted password`, `numerical user ID`, `numerical group ID`, `user
-name or comment field`, `user home directory`, `optional user command interpreter`. For more
-information, consult the manual page `$ man 5 passwd`, or [this website][link_1]
+* The `passwd` command changes passwords for user accounts. 
+
+* `/etc/passwd` is "the password file" and contains one line for each user account, with seven
+  fields delimited by colons (`:`). 
+  
+  - These fields are: `login name`, `optional encrypted password`, `numerical user ID`, 
+    `numerical group ID`, `user name or comment field`, `user home directory`, 
+    `optional user command interpreter`. 
+    For more information, consult the manual page `$ man 5 passwd`, or [this website][link_1]
 
 ``` Bash
 
-# passwd is a text file in the etc folder 
-# ("/etc/passwd" describes the full path—it is at the system level)
+# USING awk FOR A QUICK LOOK AT A FILE
+awk 'NR < 10' /etc/passwd 
 
-awk 'NR < 10' /etc/passwd # you can use awk to print the first 10 lines of a file. 
-                          # NR means "number of records"
-                          
+# 'NR < 10' means number of records less than 10 (this is using awk to view 10 lines of the file)
 # (you could also have used head -10 /etc/passwd)
 
+# passwd is a text file in the etc folder 
+# ("/etc/passwd" describes the full path—it is at the system level)
+                          
 ```
 ```
 
@@ -65,10 +70,12 @@ awk '{ print $0 }' /etc/passwd        # Print entire file
 awk -F: '{ print $1 }' /etc/passwd    # Print first field (column) of every line, separated by space
 awk -F: '{ print $1 $7 }' /etc/passwd # Print first and seventh field of every line
 
-# -F sets the field separator, FS, to a given value, in this case the symbol ':'.
+# -F sets the field separator (FS) to a given value, in this case the symbol ':'.
 # (the `/etc/passwd` file uses ':' to separate the fields)
 
 ```
+<!-- separated by space??? -->
+
 
 ### Simple Examples 2
 
