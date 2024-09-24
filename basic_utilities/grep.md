@@ -1,6 +1,5 @@
 # `grep`
 
-<!-- Content below from -->
 <!-- Chapter 1. Essential Command Line Tools, Lesson 4: Finding strings: `grep` -->
 `grep` stands for "`global regular expression print`", which points out that it can do more than
 match simple strings. It can work with more complicated regular expressions which can contain
@@ -16,7 +15,7 @@ characters in a text.)
 
 [(See documentation here)][grep_doc]
 
-[grep_doc]: https://www.gnu.org/software/grep/manual/
+[grep_doc]: https://www.gnu.org/software/grep/manual/grep.html
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
@@ -35,17 +34,37 @@ characters in a text.)
 |     `-l`     |               print out names of all files that contain matches               |
 |     `-L`     |            print out names of all files that do not contain matches           |
 |     `-c`     |                    print out number of matching lines only                    |
+|     `-r`     |     process all files in a directory, recursively, skipping symbolic links    |
+|     `-R`     |     process all files in a directory, recursively, following symbolic links   |
 
-**Note**: 
+**Notes**: 
 
 `-e PATTERNS` (or `--regexp=PATTERNS`)
 
-* If these options are used multiple times, or are combined with the  `-f` (`--file`)  option,
-  `grep` searches for all patterns given
-* These options can be used to protect a pattern beginning with "`-`"
+* If this option is used multiple times, or is combined with the  `-f` (`--file`)  option, `grep`
+  searches for all patterns given
+* Can be used to protect a pattern beginning with "`-`"
 * "PATTERNS" shows where the search pattern should be placed
 
-### Common Combinations
+<!--  -->
+`-r` (or `--recursive`)
+
+* For each directory operand, read and process all files in that directory, recursively. 
+* Follow symbolic links on the command line, **but** skip symlinks that are encountered recursively. 
+* if no file operand is given, grep searches the working directory. This is the same as
+  the '`--directories=recurse`' option.
+
+<!--  -->
+`-R` (or `--dereference-recursive` )
+
+* For each directory operand, read and process all files in that directory, recursively, following
+  all symbolic links.
+
+[^symlinks]: symbolic links are a type of file that points to another file or a folder (similar to
+shortcuts in Windows)
+
+
+### Common combinations
 <!-- Content below from -->
 <!-- Chapter 2. File and Text Manipulation Utilities / grep and strings -->
 
@@ -64,9 +83,9 @@ grep -C 3 [pattern] <filename>  Print context of lines (specified number of line
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-## Sample Usage
+## Sample usage
 
-### Simple Examples
+### Simple examples
 
 ```Bash
 
@@ -79,9 +98,17 @@ grep "^dog" file # print all lines that start with "dog"
 grep "dog$" file # print all lines that end with "dog"
 grep d[a-p] file # print all lines with a d followed by a character from a to p
 
+grep UBUNTU_CODENAME /etc/os-release
+# The /etc/os-release file contains information about the operating system.
+# It has many variables ("UBUNTU_CODENAME" is one of them) and the command above can be used to
+# print all lines that contain any given variable (i.e. to look for the value of the variable). 
+# In the case of the command above, the output will be neat, it will just say something
+# like "UBUNTU_CODENAME=bionic"
+
+
 ```
 
-### Piping Output and Using Options
+### Piping output and using options
 
 ```Bash
 
@@ -101,7 +128,7 @@ strings book1.xls | grep my_string # search for the string `my_string` in a spre
 
 ```
 
-**Using Regular Expressions**
+**Using regular expressions**
 
 ```Bash
 
@@ -112,6 +139,7 @@ git log | grep Author | grep -oP '(?<=Author: ).*' | sort -u | tr -d '<>'
 
 The command above will: 
 
+* access the user's `git` log
 * use `grep` to search for any lines that start with the word 'Author'
 * pipe the results to another `grep` command to filter anything after the word 'Author' and print
   only the words that matched (leaves the commit author's name and email.)
@@ -122,13 +150,13 @@ The command above will:
   `tr -d '<>'`
 
 
-### More Examples
+### More examples
   
 ```Bash
 
-# cd to directory where log file is
+# cd to directory where a log file is
 cd path/to/directory
-# Download file from https://github.com/dolevf/Black-Hat-Bash/blob/master/ch02/log.txt
+# sample file at https://github.com/dolevf/Black-Hat-Bash/blob/master/ch02/log.txt
 
 # extract any lines containing the IP address 35.237.4.214
 grep "35.237.4.214" log.txt
@@ -148,7 +176,7 @@ grep -o "35.237.4.214" log.txt
 
 ```
 
-### Even More Examples
+### Even more examples
 <!-- Content below from -->
 <!-- Chapter 1. Essential Command Line Tools, Lab 1.2. Using 'grep' -->
 
