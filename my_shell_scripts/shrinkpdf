@@ -31,13 +31,45 @@
 
 # Instructions .....................................................................................
 
-# If you run it with no arguments, it prints a usage summary. 
+# If you run the command with no arguments, it prints a usage summary. 
 # Use this syntax to write to a pdf file:    shrinkpdf -o out.pdf in.pdf
-# Use this syntax to change output resolution (defaults to 72):   shrinkpdf -r 90 -o out.pdf in.pdf
+# Use this syntax to change output resolution (defaults to 72):    shrinkpdf -r 90 -o out.pdf in.pdf
 
 
 # Define functions .................................................................................
 
+check_input_file ()
+{
+    # Check if the given file exists.
+    if [ ! -f "$1" ]; then
+        echo "Error: Input file does not exist." >&2
+        return 1
+    fi
+}
+
+check_overwrite ()
+{
+    # If $1 and $2 refer to the same file, then the file would get
+    # truncated to zero, which is unexpected. Abort the operation.
+    # Unfortunately the stronger `-ef` test is not in POSIX.
+    if [ "$1" = "$2" ]; then
+        echo "The output file is the same as the input file. This would truncate the file." >&2
+        echo "Use a temporary file as an intermediate step." >&2
+        return 1
+    fi
+}
+
+get_pdf_version ()
+{
+    # $1 is the input file. The PDF version is contained in the
+    # first 1024 bytes and will be extracted from the PDF file.
+    pdf_version=$(cut -b -1024 "$1" | LC_ALL=C awk 'BEGIN { found=0 }{ if (match($0, "%PDF-[0-9]\\.[0-9]") && ! found) { print substr($0, RSTART + 5, 3); found=1 } }')
+    if [ -z "$pdf_version" ] || [ "${#pdf_version}" != "3" ]; then
+        return 1
+    fi
+}
+
+# this is the one that actually runs gs and shrinks, all the others are helper functions
 shrink ()
 {
     if [ "$grayscale" = "YES" ]; then
@@ -69,25 +101,6 @@ shrink ()
       "$1"
 }
 
-get_pdf_version ()
-{
-    # $1 is the input file. The PDF version is contained in the
-    # first 1024 bytes and will be extracted from the PDF file.
-    pdf_version=$(cut -b -1024 "$1" | LC_ALL=C awk 'BEGIN { found=0 }{ if (match($0, "%PDF-[0-9]\\.[0-9]") && ! found) { print substr($0, RSTART + 5, 3); found=1 } }')
-    if [ -z "$pdf_version" ] || [ "${#pdf_version}" != "3" ]; then
-        return 1
-    fi
-}
-
-check_input_file ()
-{
-    # Check if the given file exists.
-    if [ ! -f "$1" ]; then
-        echo "Error: Input file does not exist." >&2
-        return 1
-    fi
-}
-
 check_smaller ()
 {
     # If $1 and $2 are regular files, we can compare file sizes to
@@ -103,24 +116,17 @@ check_smaller ()
     fi
 }
 
-check_overwrite ()
-{
-    # If $1 and $2 refer to the same file, then the file would get
-    # truncated to zero, which is unexpected. Abort the operation.
-    # Unfortunately the stronger `-ef` test is not in POSIX.
-    if [ "$1" = "$2" ]; then
-        echo "The output file is the same as the input file. This would truncate the file." >&2
-        echo "Use a temporary file as an intermediate step." >&2
-        return 1
-    fi
-}
 
+# If you run the command with no arguments, it prints a usage summary. 
 usage ()
 {
     echo "Reduces PDF filesize by lossy recompressing with Ghostscript."
-    echo "Not guaranteed to succeed, but usually works."
+    # echo "Not guaranteed to succeed, but usually works."
     echo
-    echo "Usage: $1 [-g] [-h] [-o output] [-r res] infile"
+    echo "Usage: shrinkpdf [-g] [-h] [-o output] [-r res] infile"
+    echo
+    echo "    Syntax to write to a pdf file:  shrinkpdf -o out.pdf in.pdf"
+    echo "    Syntax to change output resolution:  shrinkpdf -r 90 -o out.pdf in.pdf"
     echo
     echo "Options:"
     echo " -g  Enable grayscale conversion which can further reduce output size."
