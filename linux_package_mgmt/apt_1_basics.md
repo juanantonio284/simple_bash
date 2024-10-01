@@ -72,9 +72,9 @@ All of these commands can be preceded by `apt` or `apt-get` and will behave the 
 # simulated upgrade after a real one.)
 
 sudo apt update         # .... (i)
-apt list --upgradable  # .... (ii)
-apt --simulate upgrade # .... (iii)
-sudo apt upgrade       # .... (iv)
+apt list --upgradable   # .... (ii)
+apt --simulate upgrade  # .... (iii)
+sudo apt upgrade        # .... (iv)
 
 # (i) download package information from all configured sources. Other commands operate on this data
 #     to e.g. perform package upgrades or search in and display details about all packages available
@@ -91,7 +91,6 @@ sudo apt upgrade       # .... (iv)
 #      package to break. This can be used daily to relatively safely upgrade the system.
 
 ```
-
 
 ### Explanation
 
