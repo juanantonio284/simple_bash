@@ -24,6 +24,12 @@ Notes on some basic utilities for the shell
     - `theory.md`, basic package management in Linux (how programs are installed)
     - `apt_1_basics.md`, a basic tutorial on the `apt` utility for common tasks like installing,
       uninstalling, and updating
+    - `apt_example_installing_R.md`, a guide on how to install R[^note_1] 
+
+[^note_1]:
+(There's not much to learn about `apt`, to be fair, but it's a practical example of installing a
+program from start to finish. And, considering all the little tricks involved, such an example
+might actually be useful.)
 
 * `my_shell_scripts` contains: 
     - `remember`, a "notepad" script
