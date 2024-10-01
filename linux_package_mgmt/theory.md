@@ -90,10 +90,10 @@ If many package sources are referenced, it can be useful to split them in multip
 the directory `/etc/apt/sources.list.d/`, there are various files with `.list` extension.
 
 *Excursus*: Directories with a `.d `suffix are used more and more often. Each directory represents a
-configuration file which is split over multiple files. In this sense, all of the files in
-`/etc/apt/apt.conf.d/` are instructions for the configuration of APT. APT includes them in
-alphabetical order, so that the last ones can modify a configuration element defined in one of the
-first ones ... [(Read more)][continues_1]
+configuration file which is split over multiple files. In this sense, all of the files in the
+`/etc/apt/apt.conf.d/` directory are instructions for the configuration of APT. APT includes them
+in alphabetical order, so that the last ones can modify a configuration element defined in one of
+the first ones ... [(Read more)][continues_1]
 
 ### aptitude, apt-get, and apt Commands
 
@@ -128,9 +128,8 @@ command involves a complete uninstallation by deleting the configuration files a
 
 If the file `sources.list` mentions several distributions, it is possible to give the version of the
 package to install. A specific version number can be requested with `apt install package=version`.
-But it is preferred to indicate its distribution of origin (Stable, Testing or Unstable) with `apt
-install package/distribution`. With this command, it is possible to go back to an older version of
-a package, provided that it is still available in one of the sources referenced by the
+But it is preferred to indicate its distribution of origin (Stable, Testing or Unstable) with 
+`apt install package/distribution`. With this command, it is possible to go back to an older version of a package, provided that it is still available in one of the sources referenced by the
 `sources.list` file. Otherwise the snapshot.debian.org archive can come to the rescue.
 [(Read more)][continues_2]
 
