@@ -2,10 +2,12 @@
 
 This didactic document adds comments and explanations to the official instructions found on
 [this page][cran] with additional information from [this page][ubuntu_readme]. Also, some of the 
-explanations given here are based on, or *directly copied and pasted from*, [this page][linuxize_1] 
+explanations given here are based on, or *directly copied and pasted* from, [this page][linuxize_1] 
 and [this page][linuxize_2]. 
 
-## Install packages to help installation
+## Preliminaries
+
+### Install packages to help installation
 
 ```Bash
 
@@ -25,7 +27,7 @@ sudo apt install --no-install-recommends software-properties-common dirmngr
   
 * `dirmngr`: CRL and OCSP daemon
 
-## Configure key and repository
+### Configure key and repository
 
 ```Bash
 
@@ -52,18 +54,25 @@ sudo apt install --no-install-recommends r-base
 
 ```
 
-## Compiling R Packages
+## R Packages
 
 R has myriad packages available through the Comprehensive R Archive Network (CRAN). To be able to
-compile them, you need to install the `build-essential` package:
+compile them, you need to install the R development package `r-base-dev`, which "pulls in the basic
+requirements for compiling R packages". You may also need the `build-essential` development
+package.
 
 ```Bash
 
+sudo apt install r-base-dev
 sudo apt install build-essential
 
 ```
 
-(More information on how packages work in R can be found on [this page][debian_pack_R])
+A great source of information on how packages work in R can be found on [this page][debian_pack_R].
+
+More information on the build-essential package can be found on [this page][build_ess_guide].
+
+————————————
 
 You may also run into a problem that requires Java to be updated. (See more [here][stack_1])
 
@@ -78,8 +87,13 @@ sudo R CMD javareconf
 
 If you would like to update R packages that have been installed via the Ubuntu package management
 system which are installed somewhere under `/usr/lib/`, you may want to use the source packages
-from the latest version of Ubuntu or use 
-https://launchpad.net/~c2d4u.team/+archive/ubuntu/c2d4u4.0+
+from the latest version of Ubuntu (see [this page][cran2deb4ubuntu_ppa])
+
+### Installing packages
+
+R packages may then be installed by the local user/admin from the CRAN source packages, typically 
+from inside R using the `install.packages("package_name_here")`function. 
+You can also run `R CMD INSTALL package_name_here` from a shell.
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
@@ -92,4 +106,8 @@ https://launchpad.net/~c2d4u.team/+archive/ubuntu/c2d4u4.0+
 
 [debian_pack_R]: https://cran.r-project.org/bin/linux/debian/
 
+[build_ess_guide]: https://medium.com/@adwalkz/demystifying-development-a-guide-to-build-essential-in-ubuntu-for-seamless-software-compilation-b590b5a298bb
+
 [stack_1]: https://stackoverflow.com/questions/34212378/installation-of-rjava
+
+[cran2deb4ubuntu_ppa]: https://launchpad.net/~c2d4u.team/+archive/ubuntu/c2d4u4.0+
