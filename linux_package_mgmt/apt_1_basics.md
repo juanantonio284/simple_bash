@@ -4,7 +4,7 @@
 
 * `dpkg` is the package that really performs the installation, i.e. the low-level background
   application
-* The `apt-get` command is a full-featured but simplified interface to `dpkg`
+* `apt-get` is a full-featured but simplified interface to `dpkg`
 * `apt` is a more user-friendly but slightly stripped-back version of `apt-get`
     - `apt` provides more information of the type the average user wants to see during an
       installation and suppresses some of the more obscure information that `apt-get` displays.
@@ -126,10 +126,10 @@ The lines starting with Get are printed out when APT begins to fetch a package i
 percent value on the progress line indicates the total percent done of all files. 
 (See more [here][apt_interface])
 
-If you were to run `sudo apt update` and, right after, run it again, you would not see "Get" again,
-they would all say "Hit". This shows that 'Get' is a status message of what the program is doing
-and not, in a strict sense, a signal that there is something available for updating—although it
-could be interpreted that way.
+If you were to run `sudo apt update` and, right after, run it again, you would not see "`Get`"
+again, they would all say "`Hit`". This shows that "`Get`" is a status message of what the program
+is doing and not, in a strict sense, a signal that there is something available for
+updating—although it could be interpreted that way.
 
 Once updated you can use 
 
@@ -143,11 +143,11 @@ This will attempt to gently upgrade the whole system; it will never install a ne
 an existing package, nor will it ever upgrade a package that might cause some other package to
 break. This can be used daily to relatively safely upgrade the system. `upgrade` will list all of
 the packages that it could not upgrade, this usually means that they depend on new packages or
-conflict with some other package. dselect (a GUI) or apt-get install can be used to force these
+conflict with some other package. `dselect` (a GUI) or `apt-get install` can be used to force these
 packages to install
 
-Also consider `apt full-upgrade` to upgrade the entire operating system (replaces the `apt-get
-dist-upgrade` option)
+Also consider `apt full-upgrade` to upgrade the entire operating system (replaces the 
+`apt-get dist-upgrade` option)
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
@@ -306,11 +306,16 @@ sudo apt autoremove
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-## Further
+## Further: data sources
 
 The `apt` command also provides a way for you to edit the information stored about the repositories
-apt searches for packages. Only do this if you 
-[know what you're doing](https://manpages.ubuntu.com/manpages/xenial/man5/sources.list.5.html).
+apt searches for packages. 
+
+The source list `/etc/apt/sources.list` and the files contained in the `/etc/apt/sources.list.d/`
+directory are designed to support any number of active sources and a variety of source media. The
+`/etc/apt/sources.list.d` directory provides a way to add `sources.list` entries in separate files.
+
+Only do this if you know what you're doing. [Read the manual!][man_sources_list]
 
 ```Bash
 
@@ -337,5 +342,8 @@ open the graphical interface.
 * https://www.howtogeek.com/791055/apt-vs-apt-get-whats-the-difference-on-linux/
 * https://www.howtogeek.com/229699/how-to-uninstall-software-using-the-command-line-in-linux/
 
+<!-- linked inside text -->
+
 [Scribus]: https://www.scribus.net/
 [apt_interface]: https://www.debian.org/doc/manuals/apt-guide/ch4.en.html
+[man_sources_list]: https://manpages.ubuntu.com/manpages/xenial/man5/sources.list.5.html
