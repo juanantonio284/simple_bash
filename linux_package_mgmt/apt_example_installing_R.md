@@ -74,17 +74,6 @@ More information on the build-essential package can be found on [this page][buil
 
 ————————————
 
-You may also run into a problem that requires Java to be updated. (See more [here][stack_1])
-
-```Bash
-
-# This installs a new Java Development Kit in addition to the JDKs you may already have
-sudo apt install openjdk-11-jdk # change 11 to the most up-to-date version
-
-sudo R CMD javareconf
-
-```
-
 If you would like to update R packages that have been installed via the Ubuntu package management
 system which are installed somewhere under `/usr/lib/`, you may want to use the source packages
 from the latest version of Ubuntu (see [this page][cran2deb4ubuntu_ppa])
@@ -94,6 +83,17 @@ from the latest version of Ubuntu (see [this page][cran2deb4ubuntu_ppa])
 R packages may then be installed by the local user/admin from the CRAN source packages, typically 
 from inside R using the `install.packages("package_name_here")`function. 
 You can also run `R CMD INSTALL package_name_here` from a shell.
+
+You may run into a problem that requires Java to be updated. (See more [here][stack_1])
+
+```Bash
+
+# This installs a new Java Development Kit in addition to the JDKs you may already have
+sudo apt install openjdk-11-jdk # change 11 to the most up-to-date version
+
+sudo R CMD javareconf
+
+```
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
