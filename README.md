@@ -31,10 +31,11 @@ installing a program from start to finish. And, considering all the little trick
 example might actually be useful.)
 
 * `my_shell_scripts` contains: 
-    - `remember`, a "notepad" script
-    - `remindme`, a script to read the notes made with `remember`
-    - `template_simple_file_opener`, a script to open commonly used files with a single command on
-      the terminal
+    - `count_files`: count the files in a folder
+    - `remember`: write things to a "notepad"
+    - `remindme`: to read the notes made with `remember`
+    - `template_simple_file_opener`: to open commonly used files with a single command on the
+      terminal
     - `shrinkpdf`: a simple wrapper around Ghostscript to reduce the file size of PDFs; written by
       Alfred Klomp. [See usage instructions here][shrinkpdf_link]!!
 
