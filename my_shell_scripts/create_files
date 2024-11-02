@@ -1,0 +1,83 @@
+#!/bin/bash
+
+# create_files--a script to create files given a file prefix/suffix, an extension, and the desired
+# number of files to create.
+
+file_prefix=$1
+file_extension=$2 
+number_of_files=$3
+
+# option for user input ..........................
+echo "Enter the path to where you would like to change directory and create files"
+echo "  type '.' to stay where you are or type full path (do not use '~')" # improvement needed 1
+read my_path
+# improvement needed 2
+echo "    "cd "${my_path} " # leading tab, trailing space
+echo ""
+cd "${my_path}"
+# ls # debug ....
+
+# create the files ...............................
+for ((i = 1; i <= number_of_files; i++))
+do
+    # echo "${i}" # debug ....
+    file_name="${1}"_"${i}${2}" # (ii)
+    echo "${file_name}"
+    touch "${file_name}"
+done
+
+
+# Notes ............................................................................................
+
+# i. This line didn't work: for i in {1.."${3}"}
+# the idea is not terrible but the syntax doesn't seem to work. There is, in fact, a stack post with
+# someone that ran into the same problem:
+# https://stackoverflow.com/questions/14870406/bash-for-loop-naming-after-n-which-is-users-input
+
+# ii. will give a name like "test_1.txt"
+#     "   ${1}   "_"   ${i}   ${2}  " 
+#     Opening and closing quotation marks, variable 1, followed by _, loop iteration number,
+#     variable 2
+
+# iii. first trials with loop
+
+# for i in {1..5}
+# do
+#     echo "${i}" # debug ....
+#     echo " ${1}"_"${i}${2} " # will give a name like " test_1.txt " (leading and trailing spaces)
+# done
+
+
+# improvement needed ...............................................................................
+
+# 1. Should allow to use '~'. It should also use the bash auto-completion functionality (to write
+# the path using tabs to auto-complete)
+
+# 2. 
+# test if directory exists, if it doesn't:
+#   echo "    "Directory does not exist, would you like to create it? (Y/N)" "
+    
+#       if Y or Yes (or any upper/lower case version of yes): 
+#       echo "      "Creating directory at " [first_dir_up_that_exists] "
+#       cd to [first_dir_up_that_exists]
+#       mkdir
+
+#   
+#       if N or No (or any upper/lower case version of no): 
+#       echo "      "Directory does not exist, cannot proceed." "
+#       exit program
+
+# if program has not exited on "No" continue with code already at line 14
+# echo "    "cd "${my_path} "
+# echo ""
+# cd "${my_path}"
+# here the file creation would proceed as usual ...
+
+
+# Further reading ..................................................................................
+# surely read ................
+# https://stackoverflow.com/questions/4140822/creating-multiple-files-with-content-from-shell
+# https://www.hostinger.com/tutorials/bash-concatenate-strings
+
+# maybe read .................
+# https://www.cyberciti.biz/faq/bash-for-loop/

@@ -32,6 +32,8 @@ example might actually be useful.)
 
 * `my_shell_scripts` contains: 
     - `count_files`: count the files in a folder
+    - `create_files`: create files given a file prefix/suffix, an extension, and the desired number
+      of files to create
     - `remember`: write things to a "notepad"
     - `remindme`: to read the notes made with `remember`
     - `template_simple_file_opener`: to open commonly used files with a single command on the
