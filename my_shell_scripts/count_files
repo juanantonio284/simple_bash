@@ -1,0 +1,27 @@
+#!/bin/bash
+
+folder_to_count=$1
+
+file_count=$(ls $folder_to_count | wc --lines)
+
+echo $file_count files in $folder_to_count
+
+# https://www.howtogeek.com/442332/how-to-work-with-variables-in-bash/
+
+# Here's how it works:
+
+# 1. the folder_to_count variable is assigned the value of the first command line parameter, $1.
+
+# 2.
+# Another variable, called file_count, is defined. This variable takes its value from a command
+# substitution; this is the command phrase between the parentheses $( ). 
+# * The construct $( ) evaluates the commands within the parentheses, and returns their final value.
+#   which is assigned to the file_count variable. 
+# * The command evaluated in the command substitution performs an ls file listing on the directory
+#   in the folder_to_count variable; thus the script executes the command "ls /dev."
+# * The output from this command is piped into the wc command with the --lines option, which causes
+#   wc to count the number of lines in the output from the ls command. (As each file is listed on a
+#   separate line, this is the count of files and subdirectories in the "/dev" directory.) 
+# * This value is assigned to the file_count variable.
+
+# 3. echo is to output the result.
