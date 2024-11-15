@@ -3,29 +3,36 @@
 # create_files--a script to create files given a file prefix/suffix, an extension, and the desired
 # number of files to create.
 
-file_prefix=$1
-file_extension=$2 
-number_of_files=$3
+if [ $# -eq 0 ] ; then
+    echo "Usage: create_files prefix .extension desired_number_of_files"
+    echo "       e.g. 'create_files test_ .txt 1'  would create one file: 'test_1.txt'"
 
-# option for user input ..........................
-echo "Enter the path to where you would like to change directory and create files"
-echo "  type '.' to stay where you are or type full path (do not use '~')" # improvement needed 1
-read my_path
-# improvement needed 2
-echo "    "cd "${my_path} " # leading tab, trailing space
-echo ""
-cd "${my_path}"
-# ls # debug ....
+else
+    file_prefix=$1
+    file_extension=$2 
+    number_of_files=$3
+    # improvement needed 1
 
-# create the files ...............................
-for ((i = 1; i <= number_of_files; i++))
-do
-    # echo "${i}" # debug ....
-    file_name="${1}"_"${i}${2}" # (ii)
-    echo "${file_name}"
-    touch "${file_name}"
-done
+    # option for user input ..........................
+    echo "Enter the path to where you would like to change directory and create files"
+    echo "  type '.' to stay where you are or type full path (do not use '~')" # improvement needed 2
+    read my_path
+    # improvement needed 3
+    echo "    "cd "${my_path} " # leading tab, trailing space
+    echo ""
+    cd "${my_path}"
+    # ls # debug ....
 
+    # create the files ...............................
+    for ((i = 1; i <= number_of_files; i++))
+    do
+        # echo "${i}" # debug ....
+        file_name="${1}"_"${i}${2}" # (ii)
+        echo "${file_name}"
+        touch "${file_name}"
+    done
+
+fi
 
 # Notes ............................................................................................
 
@@ -50,10 +57,14 @@ done
 
 # improvement needed ...............................................................................
 
-# 1. Should allow to use '~'. It should also use the bash auto-completion functionality (to write
+# 1. add a flag/option that says whether the numbering of the files should go as prefix or suffix,
+# numbered 01 ... or 1 ...
+# and also choose how the numbering goes, maybe you want 3_1, 3_2, 3_3 ... and not 01, 02, 03
+
+# 2. Should allow to use '~'. It should also use the bash auto-completion functionality (to write
 # the path using tabs to auto-complete)
 
-# 2. 
+# 3. 
 # test if directory exists, if it doesn't:
 #   echo "    "Directory does not exist, would you like to create it? (Y/N)" "
     
