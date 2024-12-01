@@ -27,7 +27,7 @@ else
     for ((i = 1; i <= number_of_files; i++))
     do
         # echo "${i}" # debug ....
-        file_name="${1}"_"${i}${2}" # (ii)
+        file_name="${1}""${i}${2}" # (ii)
         echo "${file_name}"
         touch "${file_name}"
     done
