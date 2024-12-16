@@ -1,24 +1,26 @@
 # Using `find` with regular expressions
 
+## TLDR
+
 **Key concept**: `regex` is a match on the whole path, not a search.  
 
 For example, to match a file named `./fubar3`, you can use the regular expression `.*bar.` or
 `.*b.*3`, but not `f.*r3` (because there is no path that starts with '`f`', they always start with
 `./`).[^note_regextype]
 
-## TLDR
-
 ```Bash
 
 # Look for certain file extensions
 cd path/to/directory
-find -type f -regex ".*\.\(txt\|md\)"         # .... (i)
-find -type f -regex "\.\/.*\/.*\.\(txt\|md\)" # .... (ii)
-find -type f -regex "\.\/.*\/.*\.txt"         # .... (iii)
+find -type f -regex ".*\.\(txt\|md\)"              # (i)
+find -type f -regex "\.\/.*\/.*\.\(txt\|md\)"      # (ii)
+find -type f -regex "\.\/.*\/.*\.txt"              # (iii)
+find -type f -iregex ".*file_name.*\.\(txt\|md\)"  # (iv)
 
 # (i) Match for files with .txt or .md in their name at all levels including current directory
 # (ii) Match for files with .txt or .md in their name at all subdirectory levels but NOT current dir
 # (iii) Same as ii but only looking for .txt
+# (iv) same as i but including a file name
 
 ```
 
@@ -29,7 +31,7 @@ find -type f -regex ".*[Tt]inker.*"
 find -type f -iregex ".*tinker.*" # case insensitive regex
 
 find -type f -iregex ".*tinker.*" | sed 's/\(\.\/folder_name_1\/Folder_name_2\/\)/...\//'
-# sed will remove /folder_name_1/folder_name_2/ from the output and substitute with ... 
+# sed will remove "/folder_name_1/folder_name_2/" from the output and substitute with "..."
 
 ```
 
