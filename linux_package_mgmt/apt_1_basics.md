@@ -11,18 +11,18 @@
       (It also gives superior visual feedback and uses color highlights and progress bars in the
       terminal window.)
 
-But `apt-get` and `apt` provide more than just an easy interface to `dpkg`; they do things that
-`dpkg` doesn't do. They will retrieve files from repositories and will try to assist with missing
+But `apt-get` and `apt` provide more than just an easy interface to `dpkg`—they do things that
+`dpkg` doesn't do like retrieving files from repositories and trying to assist with missing
 dependencies and conflicts.
 
 "APT" may refer to:
 
 * The Advanced Package Tool (or APT), the main command-line package manager for Debian and its
   derivatives. It provides command-line tools for searching, managing and querying information
-  about packages, as well as low-level access to all features provided by the libapt-pkg and
-  libapt-inst libraries.
+  about packages, as well as low-level access to all features provided by the `libapt-pkg` and
+  `libapt-inst` libraries.
 
-* The apt package, providing, among others, the apt management tool, a high-level command-line
+* The `apt` package, providing, among others, the `apt` management tool, a high-level command-line
   interface for better interactive usage. 
 
 
@@ -67,7 +67,7 @@ All of these commands can be preceded by `apt` or `apt-get` and will behave the 
 
 ```Bash
 
-# the commands below are optional and are independent from one another; you can run one or all in
+# The commands below are optional and are independent from one another; you can run one or all in
 # any order (But it wouldn't make sense to upgrade without doing an update before; nor to do a
 # simulated upgrade after a real one.)
 
@@ -312,10 +312,10 @@ The `apt` command also provides a way for you to edit the information stored abo
 apt searches for packages. 
 
 The source list `/etc/apt/sources.list` and the files contained in the `/etc/apt/sources.list.d/`
-directory are designed to support any number of active sources and a variety of source media. The
-`/etc/apt/sources.list.d` directory provides a way to add `sources.list` entries in separate files.
+directory are designed to support any number of active sources and a variety of source media. (The
+`/etc/apt/sources.list.d` directory provides a way to add `sources.list` entries in separate files.)
 
-Only do this if you know what you're doing. [Read the manual!][man_sources_list]
+Only do this if you know what you're doing. [Read the manual!][man_sources_list] and see [this simple tutorial][manage_repos] (steps 3 and 4).
 
 ```Bash
 
@@ -329,6 +329,19 @@ If you double click the file `/etc/apt/sources.list` on Ubuntu, it opens a graph
 Update` settings interface. If you type `open /etc/apt/sources.list` in the terminal it will also
 open the graphical interface.
 
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+## Further: logs
+
+More info [here][installed_history]
+
+```Bash
+
+subl /var/log/dpkg.log
+
+subl /var/log/apt/term.log
+
+```
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
@@ -347,3 +360,5 @@ open the graphical interface.
 [Scribus]: https://www.scribus.net/
 [apt_interface]: https://www.debian.org/doc/manuals/apt-guide/ch4.en.html
 [man_sources_list]: https://manpages.ubuntu.com/manpages/xenial/man5/sources.list.5.html
+[manage_repos]: https://jumpcloud.com/blog/how-to-manage-apt-repositories-debian-ubuntu
+[installed_history]: https://www.linuxuprising.com/2019/01/how-to-show-history-of-installed.html
