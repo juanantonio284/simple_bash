@@ -320,8 +320,8 @@ Only do this if you know what you're doing. [Read the manual!][man_sources_list]
 ```Bash
 
 sudo apt edit-sources # opens /etc/apt/sources.list file in terminal
-
 subl -n /etc/apt/sources.list # opens the file in sublime text editor
+open /etc/apt/sources.list.d # open the directory
 
 ```
 
