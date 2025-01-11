@@ -16,16 +16,22 @@ Any of the following methods will change all **first instances** of the string `
 ```Bash
 
 # substitute only the first instance of pig to cow
+# (s stands for "substitute")
 sed s/pig/cow/ file > newfile
 sed s/pig/cow/ < file > newfile
 cat file | sed s/pig/cow/ > newfile
 
 # substitute ALL instances of pig to cow
+# (g stands for "global")
 sed s/pig/cow/g file > newfile
-# s stands for "substitute"
-# g stands for "global"
 
 ```
+
+See more on [the `s` Command][s_command] and [regexp with sed][regexp]
+
+[s_command]: https://www.gnu.org/software/sed/manual/sed.html#The-_0022s_0022-Command
+
+[regexp]: https://www.gnu.org/software/sed/manual/sed.html#Regexp-Addresses
 
 ### Delimiting Characters
 
@@ -110,8 +116,13 @@ s/frog/toad/g
 # 2. Use the file with SED
 sed -f scriptfile < file > newfile
 
+# scriptfile is applied to file (the original which has the lines with pig, dog, frog, etc), this is
+# outputed to a newfile
+
 ```
 
+<!-- scriptfile didn't quite work, see link below as it might have some hints -->
+<!-- https://unix.stackexchange.com/questions/95939/how-exactly-do-i-create-a-sed-script-and-use-it-to-edit-a-file -->
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
@@ -277,3 +288,99 @@ are the contents of the corresponding subexpressions in regexp.
 <!-- For more about this, see the discussion of back references below. After the trailing slash following replacement, an optional flag may be specified to modify the s command’s behavior. -->
 
 [^note_6]: Note that unlike `tr`, `sed` requires that both sets be of the same length.
+
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+## Part 4
+
+### Preliminaries
+
+1. Create file with text to substitute
+
+```Bash
+cd path/to/directory/
+cat > file_1.txt
+
+# enter text below (including blank line after line of text)
+a
+a
+a line of text
+another line of text
+
+# Ctrl + D to exit
+```
+
+2. Create a script-file named `script.sed` with sed commands
+
+```Bash
+s/line/string/g
+s@a@b@g
+# The @ was used instead of / to remind you that it's possible to use any character to separate the
+# fields, which will be useful for when you're searching for "/".
+# Notice that there are no single or double quotes around the regex or the substitution.
+```
+
+### Example 1
+
+1. Run `sed` command with `debug` to trace what happens
+
+```Bash
+sed --debug s/'a'/'b'/ file_1.txt
+```
+
+2. See output
+
+```
+SED PROGRAM:
+  s/a/b/
+
+INPUT:   'file_1.txt' line 1
+PATTERN: a
+COMMAND: s/a/b/
+MATCHED REGEX REGISTERS
+  regex[0] = 0-1 'a'
+PATTERN: b
+END-OF-CYCLE:
+b
+
+
+INPUT:   'file_1.txt' line 2
+PATTERN: a
+COMMAND: s/a/b/
+MATCHED REGEX REGISTERS
+  regex[0] = 0-1 'a'
+PATTERN: b
+END-OF-CYCLE:
+b
+
+INPUT:   'file_1.txt' line 3
+PATTERN: a line of text
+COMMAND: s/a/b/
+MATCHED REGEX REGISTERS
+  regex[0] = 0-1 'a'
+PATTERN: b line of text
+END-OF-CYCLE:
+b line of text
+
+
+INPUT:   'file_1.txt' line 4
+PATTERN: another line of text
+COMMAND: s/a/b/
+MATCHED REGEX REGISTERS
+  regex[0] = 0-1 'a'
+PATTERN: bnother line of text
+END-OF-CYCLE:
+bnother line of text
+```
+
+### Example 2
+
+<!-- https://www.gnu.org/software/sed/manual/sed.html#sed-scripts -->
+
+1. Run `sed` command with the sed script
+
+```Bash
+sed -f script.sed file_1.txt > output.txt
+# can also do: sed --debug -f script.sed file_1.txt
+```
