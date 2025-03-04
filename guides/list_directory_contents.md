@@ -23,7 +23,7 @@ ls -RF --group-directories-first > 0_folder_contents.md
 ```
 See more on the `-F` flag [here][ls-F]
 
-## Using the `sed` command to improve readability
+## An improvement: using the `sed` command to improve readability
 
 **1.** Create a script-file named `script2.sed` (or whatever you want) with commands for finding and
   replacing patterns. 
@@ -38,7 +38,7 @@ s@\.\/@##\ \.\/@g
 s@\/$@\ \ **Directory**@g
 
 # Recall that the syntax of the s command is ‘s/regexp/replacement/flags’.
-# Here, @ has been used instead of / to make it easier to read, as there were many 
+# In this example @ has been used instead of / to make it easier to read, as there were many 
 # escaped slashes \/, being that we are dealing with directories.
 
 # Thus, the last line is:
@@ -68,3 +68,43 @@ ls -RF --group-directories-first | sed -f script2.sed > 0_folder_contents.md
 ```
 
 [ls-F]: https://www.gnu.org/software/coreutils/manual/coreutils.html#index-_002dF-3
+
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+## Other options to consider
+
+### 1
+
+```Bash
+
+cd path/to/directory
+ls -RFsh > 0_folder_contents_RFsh.md
+# -s, --size: print the allocated size of each file, in blocks
+# -h, --human-readable: with -l and -s, print sizes like 1K 234M 2G etc.
+# Note: the size printed is not all that accurate, need to add (or use different)) options to get
+# the expected output
+
+```
+
+This will give an output that's not so easy to read. More on the ls command [here][ls_command]
+
+[ls_command]: https://www.gnu.org/software/coreutils/manual/html_node/ls-invocation.html
+
+### 2
+
+Use lines below to find and replace text in a text editor and organize the output file
+
+```markdown
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+# 1st level directories
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+## 2nd level directory 
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+### 3rd level directories
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+
+```
