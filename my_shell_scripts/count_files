@@ -25,3 +25,9 @@ echo $file_count files in $folder_to_count
 # * This value is assigned to the file_count variable.
 
 # 3. echo is to output the result.
+
+# ................................................
+# Possible improvements:
+# * make recursive (count files inside the folders)
+# * distinguish between directories and files 
+# * count by extension
