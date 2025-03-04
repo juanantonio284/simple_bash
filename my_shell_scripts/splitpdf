@@ -17,3 +17,12 @@ fi
 # not listed in the manual page. 
 
 gs -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$4" -dFirstPage=$2 -dLastPage=$3 -sDEVICE=pdfwrite "$1"
+
+
+# Recommended changes:
+# * Change the name of this utility to "extractpagesfrompdf"
+# * Increase capability to add more ranges, for example: 
+#   a line such as "extractpagesfrompdf input.pdf 1 5 10 11 20 30 output.pdf" would create a new 
+#   file that contains pages 1 to 5, 10 to 11, and 20 to 30
+#   - it would be even better to write the command like this:
+#     "extractpagesfrompdf input.pdf 1-5, 10-11, 20-30 output.pdf"
