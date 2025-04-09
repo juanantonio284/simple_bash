@@ -28,6 +28,9 @@ Notes on some basic utilities for the shell
 
 * `using_the_bash_history.md`: basic usage of the bash history
 
+* `configuring_github_authentication.md`: detailed and practical instructions on how to configure
+  ssh keys with github (better organized and summarized than the official gh reference)
+
 ### `linux_package_mgmt`
 
 * `apt_1_basics.md`: a basic tutorial on the `apt` utility for common tasks like installing,
