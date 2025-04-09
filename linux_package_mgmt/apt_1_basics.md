@@ -40,16 +40,16 @@ All of these commands can be preceded by `apt` or `apt-get` and will behave the 
 
 **Basic Package Operations**
 
-* `install packagename` - install a package
-* `remove packagename` - remove (uninstall) a package
-* `purge packagename` - remove a package **and** its configuration files
-* `update packagename` - update the repository information
+* `install <packagename>` - install a package
+* `remove <packagename>` - remove (uninstall) a package
+* `purge <packagename>` - remove a package **and** its configuration files
+* `update <packagename>` - update the repository information
 
 **Get information**
 
-* `apt search packagename` - search for a package name in the repositories 
-* `apt show packagename` - show information about a package
-* `apt list option packagename` - shows lists of installed or upgradable packages
+* `apt search <packagename>` - search for a package name in the repositories 
+* `apt show <packagename>` - show information about a package
+* `apt list option <packagename>` - shows lists of installed or upgradable packages
 * `apt edit-sources` - directly edits the list of repositories where `apt` searches for packages
 
 **See installed applications**
@@ -309,7 +309,7 @@ sudo apt autoremove
 ## Further: data sources
 
 The `apt` command also provides a way for you to edit the information stored about the repositories
-apt searches for packages. 
+where apt searches for packages.
 
 The source list `/etc/apt/sources.list` and the files contained in the `/etc/apt/sources.list.d/`
 directory are designed to support any number of active sources and a variety of source media. (The
@@ -328,6 +328,40 @@ open /etc/apt/sources.list.d # open the directory
 If you double click the file `/etc/apt/sources.list` on Ubuntu, it opens a graphical `Software &
 Update` settings interface. If you type `open /etc/apt/sources.list` in the terminal it will also
 open the graphical interface.
+
+### Example: a forced reinstallation
+
+At some point *signal* forced a new "download" (the program did not work and would not update with
+`sudo apt...`). 
+
+At this point: 
+
+* there was no key file in either one of these folders `/etc/apt/trusted.gpg.d`,
+  `/usr/share/keyrings`  
+* the file in the `/etc/apt/sources.list.d` directory was named `signal-xenial.list.distUpgrade`
+    - It's likely that the `.distUpgrade` bit was added when the operating system was updated but
+      had, hitherto, not caused any problems
+      
+I followed the [instructions below][sample_inst] which added the *official public software signing
+key* and the new file containing the repository information (the old file in the sources directory
+ceased to be necessary and was erased). 
+
+* Step 1 creates the `signal-desktop-keyring.gpg` file in the `/usr/share/keyrings/` directory
+* Step 2 creates the `signal-xenial.list` file in the `/etc/apt/sources.list.d` directory
+* Step 3 updates the package database and installs Signal
+
+```Bash
+# 1. Install our official public software signing key:
+wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
+cat signal-desktop-keyring.gpg | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+
+# 2. Add our repository to your list of repositories
+echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
+  sudo tee /etc/apt/sources.list.d/signal-xenial.list
+
+# 3. Update your package database and install Signal:
+sudo apt update && sudo apt install signal-desktop
+```
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
@@ -362,3 +396,4 @@ subl /var/log/apt/term.log
 [man_sources_list]: https://manpages.ubuntu.com/manpages/xenial/man5/sources.list.5.html
 [manage_repos]: https://jumpcloud.com/blog/how-to-manage-apt-repositories-debian-ubuntu
 [installed_history]: https://www.linuxuprising.com/2019/01/how-to-show-history-of-installed.html
+[sample_inst]: https://signal.org/download/linux/

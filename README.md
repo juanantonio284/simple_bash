@@ -31,7 +31,8 @@ Notes on some basic utilities for the shell
 ### `linux_package_mgmt`
 
 * `apt_1_basics.md`: a basic tutorial on the `apt` utility for common tasks like installing,
-  uninstalling, and updating
+  uninstalling, updating, and reinstalling (managing the `sources` directory to edit the information
+  stored about the repositories where apt searches for packages)
 
 * `apt_example_installing_R.md`: a guide on how to install R[^note_1] 
 
