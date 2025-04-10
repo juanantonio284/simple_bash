@@ -2,10 +2,7 @@
 
 **Background**
 
-Using GPG, SSH, or S/MIME, you can sign tags and commits locally. These tags or commits are marked
-as verified on GitHub so other people can be confident that the changes come from a trusted source.
-Displaying verification statuses for all of your commits. For most individual users, GPG or SSH
-will be the best choice for signing commits.
+Using GPG, SSH, or S/MIME, you can sign tags and commits locally. 
 
 * S/MIME signatures are usually required in the context of a larger organization. 
 
@@ -15,6 +12,10 @@ will be the best choice for signing commits.
 * Generating a GPG signing key is more involved than generating an SSH key, but GPG has features
   that SSH does not. A GPG key can expire or be revoked when no longer used. The GPG signature may
   include the information about it being expired or revoked.
+
+For most individual users, GPG or SSH will be the best choice for signing commits.
+
+<!-- The signed tags or commits are marked as verified on GitHub so other people can be confident that the changes come from a trusted source. Displaying verification statuses for all of your commits. -->
 
 <!-- Is this important? saving for later -->
 <!-- Depending on whether you have enabled vigilant mode, commits and tags have the following verification statuses: -->
@@ -30,46 +31,59 @@ will be the best choice for signing commits.
 ## TLDR
 
 ```Bash
-### 1. Check for existing SSH keys
+### 1. Check for existing SSH keys .............................................
 ls -al ~/.ssh
 # Lists the files in your .ssh directory, if they exist
 
-### 2. Generate a new SSH key
+### 2. Generate a new SSH key ..................................................
 ssh-keygen -t ed25519 -C "your_email@example.com"
 # If you are using a legacy system that doesn't support the Ed25519 algorithm, use:
 # ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+#     2.1. Start the ssh-agent in the background
+eval "$(ssh-agent -s)"
+#     2.2. Add your SSH private key to the OpenSSH authentication agent
+ssh-add ~/.ssh/id_ed25519
 
-### 3. Add a new SSH signing key (public key) to your GitHub account
-# 3.1
+### 3. Add a new SSH signing key (public key) to your GitHub account ...........
+#    3.1
 cat ~/.ssh/id_ed25519.pub
 # Then select and copy the contents of the id_ed25519.pub file displayed in the terminal (i.e. the
 # SSH public key) to your clipboard
-# 3.2 - 9
-# Follow the steps in section 3 of this file or at the website
-# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+#     3.2 - 9
+#     Follow the steps in section 3 of this file or at the website
+#     https://docs.github.com/en/authentication/connecting-to-github-with-ssh/
+#             adding-a-new-ssh-key-to-your-github-account
+
+### 4. Tell Git about your signing key
+#     4.1. Configure Git to use SSH to sign commits and tags
+git config --global gpg.format ssh
+#     4.2. Set your SSH signing key in Git
+git config --global user.signingkey /path/to/.ssh/key.pub
+# substitute /path/... with the path to the public key you'd like to use
 
 ```
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-## Detailed Process
+## Sign commits using SSH and have those commits verified on GitHub
 
 You can access and write data in repositories on GitHub using SSH (Secure Shell Protocol). 
 
 * When you connect via SSH, you authenticate using a private key file on your local machine
-    - When you set up SSH, you need to generate this key and add it to the SSH agent
+    - When you set up SSH, you need to generate a private/public key pair and add the private key to
+      the SSH agent
 * You must also add the public SSH key to your account on GitHub before you use the key to
-  authenticate or sign commits
+  authenticate or sign commits <!-- source: [about_ssh] -->
+* Github gives you the option to select whether a key you're uploading is for authentication or
+  signing (apparently, authentication is the default)
+  - If you want to use an SSH key that you already use to authenticate with GitHub, you should
+    upload that same key again for use as a signing key
+  - There's no limit on the number of signing keys you can add to your account. For more
+    information, see the Git documentation for `user.Signingkey`.
 
-<!-- [Further reading][about_ssh] -->
-
-If you already use an SSH key to authenticate with GitHub, you can also upload that same key again
-for use as a signing key. There's no limit on the number of signing keys you can add to your
-account. For more information, see the Git documentation for `user.Signingkey`.
-
-**Steps to sign commits using SSH and have those commits verified on GitHub**:
+#### Steps:
 
 1. Check for existing SSH keys
-2. Generate a new SSH key
-  * add the new key to the ssh-agent
+2. Generate a new SSH key  
+    * add the new key to the ssh-agent
 3. Add a new SSH signing key (public key) to your GitHub account
 4. Tell Git about your signing key
 5. Sign commits
@@ -133,8 +147,6 @@ email address. (This creates a new SSH key, using the provided email as a label.
 
 2. Decide where to save the key
 
-    You will see the prompt below
-    
     ```
     > Enter a file in which to save the key (/home/YOU/.ssh/id_ALGORITHM):[Press enter]
     ```
@@ -150,9 +162,6 @@ email address. (This creates a new SSH key, using the provided email as a label.
     > Enter passphrase (empty for no passphrase): [Type a passphrase]
     > Enter same passphrase again: [Type passphrase again]
     ```
-
-For more information, see [Working with SSH key passphrases][working_with_ssh_pass].
-<!-- read page above and summarize -->
 
 #### Add the new key to the ssh-agent
 
@@ -170,7 +179,7 @@ For more information, see [Working with SSH key passphrases][working_with_ssh_pa
     need to use root access by running `sudo -s -H` before starting the ssh-agent, or you may need
     to use `exec ssh-agent bash` or `exec ssh-agent zsh` to run the ssh-agent.)
 
-2. Add your SSH private key to the ssh-agent
+2. Add your SSH private key to the OpenSSH authentication agent
 
     If you created your key with a different name, or if you are adding an existing key that has a
     different name, replace `id_ed25519` in the command with the name of your private key file.
@@ -189,12 +198,10 @@ add the key to your account.
 
 * You can access and write data in repositories on GitHub using SSH (Secure Shell Protocol). When
   you connect via SSH, you authenticate using a private key file on your local machine
-
 * You can also use SSH to sign commits and tags. For more information about commit signing, see
   About commit signature verification.
-
-You can add an SSH key and use it for authentication, or commit signing, or both. If you want to use
-the same SSH key for both authentication and signing, you need to upload it twice.
+* You can add an SSH key and use it for authentication, or commit signing, or both. If you want to
+  use the same SSH key for both authentication and signing, you need to upload it twice.
 
 After adding a new SSH authentication key to your account on GitHub.com, you can reconfigure any
 local repositories to use SSH. For more information, see Managing remote repositories.
@@ -238,38 +245,106 @@ signing, see About commit signature verification.
 
 9. If prompted, confirm access to your account on GitHub. For more information, see Sudo mode.
 
-
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ### 4. Tell Git about your signing key
 
-[(link to original page)][step_4]
+To sign commits locally, you need to inform Git that there's a GPG, SSH, or X.509 key you'd like to
+use.
 
+```Bash
+# 4.1. Configure Git to use SSH to sign commits and tags
+git config --global gpg.format ssh
+
+# 4.2. Set your SSH signing key in Git
+git config --global user.signingkey /path/to/.ssh/key.pub
+# substitute /path/... with the path to the public key you'd like to use
+```
+
+[(link to original page)][step_4]
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ### 5. Sign commits
 
-[(link to original page)][step_5]
+If you have multiple keys or are attempting to sign commits or tags with a key that doesn't match
+your committer identity, you should tell Git about your signing key (see previous step).
 
+1. Signing a commit
+
+    ```Bash
+    git commit -S -m "YOUR_COMMIT_MESSAGE"
+    # -S: creates a signed commit
+    # if using GPG, after creating the commit, provide the passphrase (set up when the key was generated)
+    ```
+
+2. Push local commits to the remote repository on GitHub
+
+    ```Bash
+    git push
+    ```
+
+<!-- NOT SURE WHAT ALL THIS IS ABOUT! -->
+<!-- STEPS 4 AND 5 -->
+<!-- On GitHub, navigate to your pull request. -->
+<!-- On the pull request, click `Commits`. -->
+<!-- Screenshot of the title and tabs on a pull request. The "Commits" tab is outlined in dark orange. -->
+<!-- STEP 6 -->
+<!-- To view more detailed information about the verified signature, click `Verified`. -->
+<!-- Screenshot of a commit in the commit list for a repository. "Verified" is highlighted with an orange outline. -->
+
+
+<!-- NOTICE THAT ALL OF THIS IS ABOUT GPG -->
+
+<!-- To configure your Git client to sign commits by default for a local repository run  -->
+<!-- `git config commit.gpgsign true`.  -->
+<!-- To sign all commits by default in any local repository on your computer run  -->
+<!-- `git config --global commit.gpgsign true`. -->
+
+<!-- About GPG key passphrase[^note_gpg]. -->
+
+<!-- [^note_gpg]: To store your GPG key passphrase so you don't have to enter it every time you sign
+a commit, we recommend using the following tools: For Mac users, the GPG Suite allows you to
+store your GPG key passphrase in the macOS Keychain. For Windows users, the Gpg4win integrates
+with other Windows tools. You can also manually configure gpg-agent to save your GPG key
+passphrase, but this doesn't integrate with macOS Keychain like ssh-agent and requires more
+setup. -->
+
+[(link to original page)][step_5]
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ### 6. Sign tags
 
+You can sign tags locally using GPG, SSH, or S/MIME.
+
+1. Signing a tag
+
+    ```Bash
+    git tag -s MYTAG
+    # -s: creates a signed tag
+    ```
+2. Verify a signed tag
+
+    ```Bash
+    git tag -v [tag-name]
+    ```
+
 [(link to original page)][step_6]
 
-<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-<!-- extra -->
-
-<!-- To maintain account security, you can regularly review your SSH keys list and revoke any keys that are invalid or have been compromised. For more information, see Reviewing your SSH keys. -->
-<!-- https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/reviewing-your-ssh-keys -->
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+## Further
+
+* [General information on ssh][about_ssh]
+* [Adding or changing a passphrase][working_with_ssh_pass]
+* [Delete and approve ssh keys on Github][review_ssh]
+
+
+
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+<!-- links inside the regular text -->
 [about_commit_sign_verif]: https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification
 
 [ssh_commit_sign_verif]: https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification
-
-[about_ssh]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh
-
-[working_with_ssh_pass]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
 
 [step_1]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys
 
@@ -283,12 +358,13 @@ signing, see About commit signature verification.
 
 [step_6]: https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-tags
 
-<!-- Further -->
-<!-- consider reading all this -->
-<!-- https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh -->
+<!-- links for "Further" section -->
+[about_ssh]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh
 
-<!-- probably delete -->
-<!-- first link reviewed https://docs.github.com/en/authentication/managing-commit-signature-verification -->
+[working_with_ssh_pass]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
+
+[review_ssh]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/reviewing-your-ssh-keys
+
 
 <!-- review these links (probably all should be included) -->
 <!-- https://docs.github.com/authentication/managing-commit-signature-verification
