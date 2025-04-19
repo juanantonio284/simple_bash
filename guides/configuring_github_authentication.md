@@ -27,6 +27,7 @@ For most individual users, GPG or SSH will be the best choice for signing commit
 
 [(link to original page)][about_commit_sign_verif]
 
+
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## TLDR
 
@@ -62,6 +63,19 @@ git config --global user.signingkey /path/to/.ssh/key.pub
 # substitute /path/... with the path to the public key you'd like to use
 
 ```
+
+Solution to a potential problem  
+(This shouldn't be in TLDR, you should actually read and understand what's going on.)
+
+```Bash
+ssh-keygen -R domain.example # remove old key
+
+ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+# the command ssh-keyscan -t rsa github.com scans for the sshkey of type rsa in github.com
+# >> ~/.ssh/known_hosts writes it to the known_hosts file
+```
+
+
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Sign commits using SSH and have those commits verified on GitHub
 
@@ -331,13 +345,58 @@ You can sign tags locally using GPG, SSH, or S/MIME.
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+## A Problem I Ran Into
+
+[See the original stackoverflow solution here][solution]
+
+**Problem**
+
+```
+Host key verification failed.
+fatal: Could not read from remote repository.
+```
+
+**Explanation**
+
+When using SSH, every host has a key. Clients remember the host key associated with a particular
+address and refuse to connect if a host key appears to change. This prevents man in the middle
+attacks. 
+
+The reason for the error message is that `domain.example` is no longer in your known_hosts after
+deleting it and presumably not in the system's `known_hosts` file, so `ssh` has no way to know
+whether the host on the other end of the connection is really `domain.example`. 
+
+**Solution**
+
+*If this does not seem fishy to you*, remove the old key yourself by editing 
+`${HOME}/.ssh/known_hosts` to remove the line for `domain.example`. Or let an SSH utility do it for
+you with:
+
+```Bash
+ssh-keygen -R domain.example # remove old key
+```
+
+From here, record the updated key: 
+
+```Bash
+ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+# the command ssh-keyscan -t rsa github.com scans for the sshkey of type rsa in github.com
+# >> ~/.ssh/known_hosts writes it to the known_hosts file
+
+# just for reference, there is a "/etc/ssh/ssh_config" file in the system you might want to look at
+# in the future ...
+```
+
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Further
 
 * [General information on ssh][about_ssh]
 * [Adding or changing a passphrase][working_with_ssh_pass]
 * [Delete and approve ssh keys on Github][review_ssh]
-
-
+* [A troubleshooting section][troubleshooting]
+* [All of github's documentation regarding authentication][all_authentication] (any link found in
+  this document, and many more, can be found here)
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
@@ -358,24 +417,16 @@ You can sign tags locally using GPG, SSH, or S/MIME.
 
 [step_6]: https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-tags
 
+[solution]: https://stackoverflow.com/a/13364116
+
 <!-- links for "Further" section -->
+
+[all_authentication]: https://docs.github.com/en/authentication
+
 [about_ssh]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh
 
 [working_with_ssh_pass]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
 
 [review_ssh]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/reviewing-your-ssh-keys
 
-
-<!-- review these links (probably all should be included) -->
-<!-- https://docs.github.com/authentication/managing-commit-signature-verification
-
-https://docs.github.com/authentication/connecting-to-github-with-ssh
-
-https://docs.github.com/authentication/troubleshooting-ssh
-
-https://serverfault.com/questions/321167/add-correct-host-key-in-known-hosts-multiple-ssh-host-keys-per-hostname
-
-https://stackoverflow.com/questions/13363553/git-error-host-key-verification-failed-when-connecting-to-remote-repository
-
- -->
- 
+[troubleshooting]: https://docs.github.com/authentication/troubleshooting-ssh
