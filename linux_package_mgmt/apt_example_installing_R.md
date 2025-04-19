@@ -1,4 +1,4 @@
-# A practical example of how APT works: installing R
+# A practical example of how APT works: installing `R`
 
 This didactic document adds comments and explanations to the official instructions found on
 [this page][cran] with additional information from [this page][ubuntu_readme]. Also, some of the 

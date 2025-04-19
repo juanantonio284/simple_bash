@@ -15,7 +15,6 @@ to be a thorough guide—it's barely a guide as it is, it's more of a log of wha
 
 ```Bash
 lsb_release -a
-
 ```
 
 2. Make sure that you have the `update-manager-core` package installed

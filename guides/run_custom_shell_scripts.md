@@ -2,31 +2,32 @@
 
 ## TLDR
 
-**1. Open the login script file and add a path to your scripts directory**  
+**1. Open the login script file (e.g. `.bashrc`) and add a path to your scripts directory**  
 (This only needs to be done once, when you first create a scripts directory; you may skip this step
 in the future)
 
 * Open the `.bashrc` file in a text editor 
 
-```Bash
+    ```Bash
+    
+    subl -n ~/.bashrc # (make sure .bashrc is the correct login script file for your system)
+    
+    ```
 
-subl -n ~/.bashrc # (make sure .bashrc is the correct login script file for your system)
+* Add the line below to the top of the file (**do not** run this in terminal)
 
-```
+    ```Bash
+    
+    export PATH="/path/to/scripts/:$PATH" 
+    # note the syntax:
+    # * the quote (") opens, then the path follows, then instead of a closing quote there is :$PATH, 
+    #   and then the quote closes 
+    # * the path ends in /
+    
+    ```
 
-* Add the line below to the top of the file (do not run this in terminal)
-
-```Bash
-
-export PATH="/path/to/scripts/:$PATH" 
-# note the syntax:
-# * the quote (") opens, then the path follows, then instead of a closing quote there is :$PATH and
-#   then the quote closes 
-# * the path ends in /
-
-```
-
-**2. Create a script that starts with the `shebang`**
+**2. Create a script that starts with the `shebang`**  
+(This is a different file in the scripts directory.)
 
 ```Bash
 
@@ -49,25 +50,26 @@ chmod +x ~/path/to/scripts/helloworld
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-## Preliminaries
+## Preliminary Theory
 
 ### The `PATH` variable
 
 The directories where bash will search for standard commands are stored in an environment variable
 called `PATH`. 
 
-**Printing the current `PATH` environment variable**
-
 ```Bash
 
-echo $PATH
-
-# /home/user_name/.local/:/home/user_name/gems/bin:/home/user_name/anaconda3/bin:
-# /home/user_name/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
-# /usr/games:/usr/local/games:/snap/bin:/snap/bin
+echo $PATH # this prints the current `PATH` environment variable
 
 ```
 
+Printout to terminal window below:
+
+```
+/home/user_name/.local/:/home/user_name/gems/bin:/home/user_name/anaconda3/bin:
+/home/user_name/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
+/usr/games:/usr/local/games:/snap/bin:/snap/bin
+```
 The directories in this output are separated from one another by a colon (`:`). These are all the
 directories that bash will check when you ask it to run a program or command. If your command is
 not stored in any of these directories, bash cannot run it. 
@@ -75,13 +77,12 @@ not stored in any of these directories, bash cannot run it.
 If you move a script file to one of the directories listed by the `echo $PATH` command the command
 will run. (You can also add a directory where you would like bash to search for scripts.)
 
-*Note for my computer*:
-
-This is the value of my `PATH` variable, separated in lines to understand better.
+**Note**: below is the value of my `PATH` variable (what printed to the terminal window), separated
+  by lines to understand better
 
 ```
 
-these seem like "normal" places to search
+These seem like "normal" places to search
 
 /home/user_name/.local/
 /home/user_name/.local/bin
@@ -96,7 +97,7 @@ these seem like "normal" places to search
 /snap/bin
 /snap/bin
 
-these two correspond to things I installed, which modified my login script (see next section) so
+These two correspond to programs I installed, which modified my login script (see next section) so
 that it adds these paths to the search
 
 /home/user_name/gems/bin
@@ -147,10 +148,8 @@ add a line like the following:
 that displays the text you entered (thus letting you know which login script is loaded in your
 system).
 
-*Note for my computer*:
-
-Could not find `~/.login`, `~/.bash_profile` or `~/.bash_login`. Found the two below, with those
-notes inside.
+**Note**: in my computer, there were no `~/.login`, `~/.bash_profile` or `~/.bash_login` files.
+  Found the two below, with those notes inside.
 
 ```
 
@@ -185,7 +184,7 @@ file:
 
 ```Bash
 
-# do not run line below in terminal
+# DO NOT RUN LINE BELOW IN TERMINAL
 # open the login script file in your text editor and add the line below to the top of the file 
 export PATH="/path/to/scripts/:$PATH"
 
@@ -247,9 +246,7 @@ chmod +x ~/Development/simple_bash/my_shell_scripts/intro
 
 ```
 
-**Run**
-
-Now you can open a terminal and run the script by typing `intro`.
+**Run**: you can run the script by opening a terminal and typing `intro`.
 
 
 ### Debugging
@@ -281,9 +278,11 @@ set +x
 ```
 
 You can think of set as a valve that turns a certain option on and off. In this example, the first
-command sets the debugging mode (set -x), while the last command (set +x) disables it. By using
+command sets the debugging mode (`set -x`), while the last command (`set +x`) disables it. By using
 set, you can avoid generating a massive amount of noise in your terminal when your script is large
 and contains a specific problem area.
+
+
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
