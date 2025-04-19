@@ -101,6 +101,8 @@ shrink ()
       "$1"
 }
 
+
+# In this case, wouldn't it just be better to say "failed to shrink file" instead of copying?
 check_smaller ()
 {
     # If $1 and $2 are regular files, we can compare file sizes to
@@ -125,14 +127,14 @@ usage ()
     echo
     echo "Usage: shrinkpdf [-g] [-h] [-o output] [-r res] infile"
     echo
-    echo "    Syntax to write to a pdf file:  shrinkpdf -o out.pdf in.pdf"
-    echo "    Syntax to change output resolution:  shrinkpdf -r 90 -o out.pdf in.pdf"
-    echo
+    echo "               Basic example:  shrinkpdf -o out.pdf in.pdf"
+    echo "    Change output resolution:  shrinkpdf -r 90 -o out.pdf in.pdf"
+    echo "                                            120 might be better"
     echo "Options:"
-    echo " -g  Enable grayscale conversion which can further reduce output size."
-    echo " -h  Show this help text."
-    echo " -o  Output file, default is standard output."
-    echo " -r  Resolution in DPI, default is 72."
+    echo " -g  Enable grayscale conversion which can further reduce output size"
+    echo " -h  Show this help text"
+    echo " -o  Output file, default is standard output"
+    echo " -r  Resolution in DPI, default is 72"
 }
 
 
