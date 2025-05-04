@@ -13,9 +13,17 @@ Notes on some basic utilities for the shell
 * `basic_utilities` contains tutorials on the following BASH utilities: `awk` `grep`, `sed`, `cat`,
   `shred`
   
-* `other_utilities` contains notes on: `find`, `nano`, `gs`(ghostscript), `gpg` (GNU privacy guard)
+* `other_utilities` contains notes on: `find`, `nano`, `gs` (ghostscript), `gpg` (GNU privacy guard)
+
 
 ### `guides`
+
+* `configuring_github_authentication.md`: detailed and practical instructions on how to configure
+  ssh keys with github (better organized and summarized than the official gh reference)
+  
+* `create_directory_with_given_structure.md`: given `directory_1`, find out which folders are inside
+  it. Then, create `directory_2` and, inside it, create empty folders with same names and structure
+  as those of `directory_1`. (Uses the `tree` and `xargs` utilities.)
 
 * `list_directory_contents.md`: using the `ls` command to list directory contents and using the
   `sed` command to improve readability of the output
@@ -28,8 +36,8 @@ Notes on some basic utilities for the shell
 
 * `using_the_bash_history.md`: basic usage of the bash history
 
-* `configuring_github_authentication.md`: detailed and practical instructions on how to configure
-  ssh keys with github (better organized and summarized than the official gh reference)
+* `using_yt-dlp`: using the `yt-dlp` command-line utility to download video and audio from youtube
+
 
 ### `linux_package_mgmt`
 
@@ -46,6 +54,7 @@ example might actually be useful.)
 * `theory.md`: basic package management in Linux (how programs are installed)
 
 * `upgrade_os.md`: notes on an operating system update
+
 
 ### `my_shell_scripts`
 
