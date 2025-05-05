@@ -2,16 +2,21 @@
 
 ## TLDR
 
+1. Create script-file (see "An improvement ..." below)
+
+2. Run lines below
+
 ```Bash
-cd path/to/directory
+cd path/to/directory/
 ls -RF --group-directories-first | sed -f script2.sed > 0_folder_contents.md
 ```
+
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Basic Idea
 
 ```Bash
-cd path/to/directory
+cd path/to/directory/
 ls -RF --group-directories-first > 0_folder_contents.md
 
 # -R, --recursive: list subdirectories recursively
@@ -19,6 +24,8 @@ ls -RF --group-directories-first > 0_folder_contents.md
 #                                  / for directories
 #                                  nothing for files
 #                                  * for executables
+
+# note that the -F flag might cause the * to appear in many places where it shouldn't ...
 
 ```
 See more on the `-F` flag [here][ls-F]
@@ -29,7 +36,7 @@ See more on the `-F` flag [here][ls-F]
   replacing patterns. 
 
 ```Bash
-cd path/to/directory
+cd path/to/directory/
 cat > script2.sed
 
 # enter text below
@@ -54,20 +61,26 @@ s@\/$@\ \ **Directory**@g
 
 ```Bash
 
-# cd path/to/directory
+cd path/to/directory/
+
+# Option 1
 ls -RF --group-directories-first > 0_folder_contents.md
 sed -f script2.sed 0_folder_contents.md > clean_folder_contents.md
 
-# all in one line
+# Option 2 (all in one line)
 ls -RF --group-directories-first | sed -f script2.sed > 0_folder_contents.md
+
+```
+
+Extra (code for testing)
+
+```Bash
 
 # same as above but outside of the script file, just for testing
 # ls -RF --group-directories-first | sed s/"\/$"/"   **Directory**"/g > 0_folder_contents.md
 # ls -RF --group-directories-first | sed s/"\.\/"/"## \.\/"/g > 0_folder_contents.md
 
 ```
-
-[ls-F]: https://www.gnu.org/software/coreutils/manual/coreutils.html#index-_002dF-3
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
@@ -77,7 +90,7 @@ ls -RF --group-directories-first | sed -f script2.sed > 0_folder_contents.md
 
 ```Bash
 
-cd path/to/directory
+cd path/to/directory/
 ls -RFsh > 0_folder_contents_RFsh.md
 # -s, --size: print the allocated size of each file, in blocks
 # -h, --human-readable: with -l and -s, print sizes like 1K 234M 2G etc.
@@ -88,7 +101,6 @@ ls -RFsh > 0_folder_contents_RFsh.md
 
 This will give an output that's not so easy to read. More on the ls command [here][ls_command]
 
-[ls_command]: https://www.gnu.org/software/coreutils/manual/html_node/ls-invocation.html
 
 ### 2
 
@@ -108,3 +120,11 @@ Use lines below to find and replace text in a text editor and organize the outpu
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 
 ```
+
+
+
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+
+[ls-F]: https://www.gnu.org/software/coreutils/manual/coreutils.html#index-_002dF-3
+[ls_command]: https://www.gnu.org/software/coreutils/manual/html_node/ls-invocation.html
