@@ -176,22 +176,23 @@ is opened and your system will add this path to its search list when looking for
 
 You can implement a similar customization to make your shell scripts available by default: 
 
-1. create a directory to save all your shell scripts in
+1. Create a directory to save all your shell scripts in
 
-2. add this directory to `PATH` in your login file to reference your new scripts more easily. To do
+2. Add this directory to `PATH` in your login file to reference your new scripts more easily. To do
 this, **open the login script file in your text editor** and add the line below to the top of the
 file:
 
-```Bash
+```Console
 
-# DO NOT RUN LINE BELOW IN TERMINAL
-# open the login script file in your text editor and add the line below to the top of the file 
+DO NOT RUN LINE BELOW IN TERMINAL
+open the login script file in your text editor and add the line below to the top of the file 
+
 export PATH="/path/to/scripts/:$PATH"
 
-# note the syntax:
-# * the quote (") opens, then the path follows, then instead of a closing quote there is :$PATH and
-#   then the quote closes 
-# * the path ends in /
+note the syntax:
+* the quote (") opens, then the path follows, then instead of a closing quote there is :$PATH and
+ then the quote closes 
+* the path ends in /
 
 ```
 

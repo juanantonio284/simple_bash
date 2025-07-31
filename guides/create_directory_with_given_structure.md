@@ -2,7 +2,7 @@
 
 ## TLDR
 
-Given `directory_1`, find out which folders are inside it.  
+Given `directory_1` (the template directory), find out which folders are inside it.  
 Create `directory_2` and, inside it, create empty folders with same names and structure as those of 
 `directory_1`.
 

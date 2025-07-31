@@ -31,7 +31,7 @@
 
 # Instructions .....................................................................................
 
-# If you run the command with no arguments, it prints a usage summary. 
+# If you run the command with no arguments, it prints a summary with instructions on how to use.
 # Use this syntax to write to a pdf file:    shrinkpdf -o out.pdf in.pdf
 # Use this syntax to change output resolution (defaults to 72):    shrinkpdf -r 90 -o out.pdf in.pdf
 
