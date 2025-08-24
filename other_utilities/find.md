@@ -138,3 +138,8 @@ where the pattern is matched. This would change if using the `-regex` flag, see 
 <!-- maybe look at this site -->
 <!-- https://www.tecmint.com/35-practical-examples-of-linux-find-command/ -->
 <!-- Part III – Search Files Based On Owners and Groups -->
+
+<!-- definitely look at this -->
+
+<!-- * Scavenging for Credentials [a use of the `find` command page 211 black hat bash] -->
+<!-- * Finding Files Based on Permissions [page 207 black hat bash] -->

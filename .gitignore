@@ -27,7 +27,8 @@ srcs/*
 probation_shell_scripts
 
 to_do_in_this_repository.md
-
+apt_repositories.md
+reading_logs.md
 
 # this might be something good to read
 # https://stackoverflow.com/questions/30227858/gitignore-exclude-specific-file

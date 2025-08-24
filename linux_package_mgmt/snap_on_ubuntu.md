@@ -41,7 +41,7 @@ gnome-3-38-2004_140.snap, firefox_6259.snap, firefox_6227.snap, etc`
 
 There is a different folder `~/snap` that seems to be in use and updated; it contains folders and
 subfolders but, ultimately, almost everything is empty (and says 0 bytes). This folder might be
-some type of shortcut/alias to `/var/lib/snapd/snaps`.
+some type of shortcut or alias to `/var/lib/snapd/snaps`.
 
 **2**
 
@@ -52,7 +52,7 @@ some type of shortcut/alias to `/var/lib/snapd/snaps`.
   is data that programs modify while they run, and that pertains to one specific host. Users must
   never need to modify files in `/var/lib` to configure a package's operation, and the specific
   file hierarchy used to store the data must not be exposed to regular users. [Data with exposed
-  filesystem structure should be stored in /srv.]
+  filesystem structure should be stored in `/srv`.]
 > 
 > State information is generally used to preserve the condition of an application (or a group of
   interrelated applications) between invocations and between different instances of the same
@@ -65,6 +65,19 @@ some type of shortcut/alias to `/var/lib/snapd/snaps`.
 ## 2. Try to fix it
 
 `snap list --all` will give you a list of all the "snaps" and whether they are disabled or not.
+
+### Clean by hand
+
+```Bash
+
+snap list --all 
+cd /var/lib/snapd/snaps
+sudo snap remove audacity --revision 1196
+# sudo snap remove name_of_program --revision (revision number)
+
+```
+
+### Use script
 
 Consider using [this script][stack_1_a] (also seen below) to delete older versions of snap.
 
