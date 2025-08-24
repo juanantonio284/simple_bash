@@ -25,9 +25,11 @@ dependencies and conflicts.
 * The `apt` package, providing, among others, the `apt` management tool, a high-level command-line
   interface for better interactive usage. 
 
+For more detail, there's an interesting question/answer [here][stack_why_dpkg]
+
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
-## APT Selected commands
+## APT selected commands
 
 All of these commands can be preceded by `apt` or `apt-get` and will behave the same.
 
@@ -76,16 +78,13 @@ apt list --upgradable   # .... (ii)
 apt --simulate upgrade  # .... (iii)
 sudo apt upgrade        # .... (iv)
 
-# (i) download package information from all configured sources. Other commands operate on this data
+# (i) Download package information from all configured sources. Other commands operate on this data
 #     to e.g. perform package upgrades or search in and display details about all packages available
 #     for installation.
-
-# (ii) list the applications that can be upgraded, also accepts the word 'upgradeable'
-
-# (iii) at the end of a simulation you will get a message like:
+# (ii) List the applications that can be upgraded, also accepts the word 'upgradeable'
+# (iii) At the end of a simulation you will get a message like:
 #       "0 upgraded, 0 newly installed, 0 to remove and 9 not upgraded"; which might be useful to
 #       see where there will be conflicts
-
 # (iv) This will attempt to gently upgrade the whole system; it will never install a new package or
 #      remove an existing package, nor will it ever upgrade a package that might cause some other
 #      package to break. This can be used daily to relatively safely upgrade the system.
@@ -124,7 +123,7 @@ Get:5 http://llug.sep.bnl.gov/debian/testing/non-free Packages
 The lines starting with Get are printed out when APT begins to fetch a package information file
 (not the actual package) while the last line indicates the progress of the download. The first
 percent value on the progress line indicates the total percent done of all files. 
-(See more [here][apt_interface])
+(See more [here][apt_interface].)
 
 If you were to run `sudo apt update` and, right after, run it again, you would not see "`Get`"
 again, they would all say "`Hit`". This shows that "`Get`" is a status message of what the program
@@ -144,7 +143,7 @@ an existing package, nor will it ever upgrade a package that might cause some ot
 break. This can be used daily to relatively safely upgrade the system. `upgrade` will list all of
 the packages that it could not upgrade, this usually means that they depend on new packages or
 conflict with some other package. `dselect` (a GUI) or `apt-get install` can be used to force these
-packages to install
+packages to install.
 
 Also consider `apt full-upgrade` to upgrade the entire operating system (replaces the 
 `apt-get dist-upgrade` option)
@@ -166,7 +165,7 @@ apt list --installed > apt_list_installed.txt
 # To find packages of interest, use grep and part of the name or topic of interest
 apt list --installed | grep -i python
 
-# list the applications that can be upgraded
+# List the applications that can be upgraded
 apt list --upgradable    # also accepts the word 'upgradeable'
 
 # Count how many packages are installed by counting lines in the list
@@ -270,11 +269,8 @@ See a list of all installed packages on your computer:
 
 ```Bash
 
-# option 1
-dpkg --list
-
-# option 2
 apt list --installed
+# can also use dpkg --list
 
 ```
 
@@ -312,10 +308,11 @@ The `apt` command also provides a way for you to edit the information stored abo
 where apt searches for packages.
 
 The source list `/etc/apt/sources.list` and the files contained in the `/etc/apt/sources.list.d/`
-directory are designed to support any number of active sources and a variety of source media. (The
-`/etc/apt/sources.list.d` directory provides a way to add `sources.list` entries in separate files.)
+directory[^note_sources] are designed to support any number of active sources and a variety of
+source media. 
 
-Only do this if you know what you're doing. [Read the manual!][man_sources_list] and see [this simple tutorial][manage_repos] (steps 3 and 4).
+Only edit this way if you know what you're doing. 
+[Read the manual!][man_sources_list] and see [this simple tutorial][manage_repos] (steps 3 and 4).
 
 ```Bash
 
@@ -326,8 +323,12 @@ open /etc/apt/sources.list.d # open the directory
 ```
 
 If you double click the file `/etc/apt/sources.list` on Ubuntu, it opens a graphical `Software &
-Update` settings interface. If you type `open /etc/apt/sources.list` in the terminal it will also
-open the graphical interface.
+Update` settings interface. 
+If you type `open /etc/apt/sources.list` in the terminal it will also open the graphical interface.
+
+
+[^note_sources]: The `/etc/apt/sources.list.d` directory provides a way to add `sources.list` entries in separate files (probably because all in one file becomes unmanageable).
+
 
 ### Example: a forced reinstallation
 
@@ -365,6 +366,74 @@ sudo apt update && sudo apt install signal-desktop
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+## Further: dpkg
+
+```Bash
+
+dpkg --list              # List all packages installed
+dpkg --list <package>    # Get more information
+dpkg -L <package>        # List files installed in a package
+
+dpkg --status <package>    # show the status of an installed package (i.e. more information)
+dpkg --status <package> | grep -i <desired info> # parse information about the package
+                                                 # (really, write any word that you want to look up)
+
+dpkg --search <file>       # show what package a file belongs to
+
+dpkg -V <package>          # Verify the installed package's integrity (shows no output)
+
+```
+
+Note that `dpkg` is, itself, treated like a package `dpkg --status dpkg`
+
+```Bash
+# could not get these to work 
+dpkg -I webfs_1.21+ds1-8_amd64.deb    # Show information about a package file
+dpkg -c webfs_1.21+ds1-8_amd64.deb    # List files in a package file
+
+```
+
+### Sample Usage
+
+```Bash
+
+dpkg --list              # List all packages installed
+# ...
+# ...
+
+dpkg --list 7zip         # Get more information
+# ||/ Name           Version       Architecture Description
+# +++-==============-=============-============-=================================================
+# ii  7zip           23.01+dfsg-11 amd64        7-Zip file archiver with a high compression ratio
+
+dpkg -L 7zip        # List files installed in a package
+# /.
+# /usr
+# /usr/bin
+# /usr/bin/7z
+# ...
+# /usr/lib
+# /usr/lib/7zip
+# ...
+# ...
+
+dpkg --status 7zip        # show the status of an installed package (i.e. more information)
+# a lot of information is shown ...
+
+dpkg --status 7zip | grep -i version  # parse information about the package 
+# Version: 23.01+dfsg-11
+#   * Powerful command line version
+
+dpkg --status 7zip | grep -i priority # (really, write any word that you want to look up)
+# Priority: optional
+
+dpkg --search logrotate.conf  # show what package a file belongs to
+
+```
+
+<!-- maybe read this https://phoenixnap.com/kb/dpkg-command -->
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Further: logs
 
 More info [here][installed_history]
@@ -372,7 +441,6 @@ More info [here][installed_history]
 ```Bash
 
 subl /var/log/dpkg.log
-
 subl /var/log/apt/term.log
 
 ```
@@ -397,3 +465,4 @@ subl /var/log/apt/term.log
 [manage_repos]: https://jumpcloud.com/blog/how-to-manage-apt-repositories-debian-ubuntu
 [installed_history]: https://www.linuxuprising.com/2019/01/how-to-show-history-of-installed.html
 [sample_inst]: https://signal.org/download/linux/
+[stack_why_dpkg]: https://askubuntu.com/questions/1473619/so-why-do-people-still-use-dpkg-when-there-is-apt
