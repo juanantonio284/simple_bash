@@ -1,18 +1,19 @@
-# `dpkg`, `apt`, `apt-get`
+# Package Management in Debian
 
 ## Clarification
 
 * `dpkg` is the package that really performs the installation, i.e. the low-level background
   application
 * `apt-get` is a full-featured but simplified interface to `dpkg`
+    - `apt-get` is likely a safer command for scripts
 * `apt` is a more user-friendly but slightly stripped-back version of `apt-get`
     - `apt` provides more information of the type the average user wants to see during an
       installation and suppresses some of the more obscure information that `apt-get` displays.
       (It also gives superior visual feedback and uses color highlights and progress bars in the
       terminal window.)
 
-But `apt-get` and `apt` provide more than just an easy interface to `dpkg`—they do things that
-`dpkg` doesn't do like retrieving files from repositories and trying to assist with missing
+But `apt-get` and `apt` provide more than just an easy interface to `dpkg`, they do things that
+`dpkg` doesn't do like retrieving files from repositories, and trying to assist with missing
 dependencies and conflicts.
 
 "APT" may refer to:
@@ -60,6 +61,24 @@ All of these commands can be preceded by `apt` or `apt-get` and will behave the 
 * `apt list --installed` - see the list of applications installed on your computer
 * `apt list --installed > apt_list_installed.txt` - output the list of installed applications to a
   file
+
+**Cleaning**
+
+* `sudo apt clean` - clean cache files and any archived package files that have been installed
+* `sudo apt autoremove` - get rid of any packages not needed anymore, such as older Linux kernel
+  versions
+<!-- These commands liberate disk space in `/var` -->
+
+
+### `apt-cache` commands
+
+These do similar things to the ones above (might be better in certain cases)
+
+* `apt-cache pkgnames | grep -i <package name>`
+
+* `apt-cache search "kernel"` - list all installed kernel-related packages
+* `apt-cache search -n "kernel"` - find packages that have "kernel" in their name
+* `apt-cache pkgnames "kernel"` - find packages that have "kernel" in their name
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
@@ -149,6 +168,10 @@ Also consider `apt full-upgrade` to upgrade the entire operating system (replace
 `apt-get dist-upgrade` option)
 
 
+
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Installing applications (an example)
 
@@ -445,6 +468,11 @@ subl /var/log/apt/term.log
 
 ```
 
+
+
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## References
