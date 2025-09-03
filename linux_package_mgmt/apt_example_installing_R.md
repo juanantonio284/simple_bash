@@ -1,4 +1,4 @@
-# A practical example of how APT works: installing `R`
+# A practical example of how APT works: Installing `R`
 
 This didactic document adds comments and explanations to the official instructions found on
 [this page][cran] with additional information from [this page][ubuntu_readme]. Also, some of the 
@@ -23,7 +23,7 @@ sudo apt install --no-install-recommends software-properties-common dirmngr
 
 * `add-apt-repository` is a Python script that allows you to add an APT repository to either
   `/etc/apt/sources.list` or to a separate file in the `/etc/apt/sources.list.d` directory.
-  (`man add-apt-repository` for more information.)
+  (See `man add-apt-repository` for more information.)
   
 * `dirmngr`: CRL and OCSP daemon
 
@@ -46,6 +46,8 @@ sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_
 
 ```
 
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Install (finally)
 
 ```Bash
@@ -72,11 +74,11 @@ A great source of information on how packages work in R can be found on [this pa
 
 More information on the build-essential package can be found on [this page][build_ess_guide].
 
-————————————
+<!-- ———————————— -->
 
-If you would like to update R packages that have been installed via the Ubuntu package management
-system which are installed somewhere under `/usr/lib/`, you may want to use the source packages
-from the latest version of Ubuntu (see [this page][cran2deb4ubuntu_ppa])
+[If you would like to update R packages that have been installed via the Ubuntu package management
+system—which are installed somewhere under `/usr/lib/`—you may want to use the source packages
+from the latest version of Ubuntu (see [this page][cran2deb4ubuntu_ppa]).]
 
 ### Installing packages
 
@@ -92,6 +94,21 @@ You may run into a problem that requires Java to be updated. (See more [here][st
 sudo apt install openjdk-11-jdk # change 11 to the most up-to-date version
 
 sudo R CMD javareconf
+
+```
+
+### For completeness: installing RStudio
+
+1. [Download the installer][rstudio_dl]
+
+2. Navigate to the folder where the package was downloaded and use this line 
+`sudo apt install ./package_name.deb`
+
+```BASH
+
+cd path/to/directory_where_the_install_file_is_located
+sudo apt install ./rstudio-2025.05.1-513-amd64.deb # make sure you put this ./
+# (The ./ tells apt to look for the file in the current directory)
 
 ```
 
@@ -111,3 +128,5 @@ sudo R CMD javareconf
 [stack_1]: https://stackoverflow.com/questions/34212378/installation-of-rjava
 
 [cran2deb4ubuntu_ppa]: https://launchpad.net/~c2d4u.team/+archive/ubuntu/c2d4u4.0+
+
+[rstudio_dl]: https://posit.co/download/rstudio-desktop/
