@@ -2,11 +2,27 @@
 
 ## TLDR
 
-**Key concept**: `regex` is a match on the whole path, not a search.  
+**Key concept**: `regex` is a match on the whole path (the characters), it is not a "file search".  
 
-For example, to match a file named `./fubar3`, you can use the regular expression `.*bar.` or
-`.*b.*3`, but not `f.*r3` (because there is no path that starts with '`f`', they always start with
-`./`).[^note_regextype]
+For example, to match a file named `./fubar3`, you can use the expressions: 
+
+* `.*bar.` or `.*b.*3`,
+
+* not `f.*r3` (because there is no path that starts with '`f`', they always start with `./` at the
+  current directory).[^note_regextype]
+
+```Bash
+
+# Look for file names
+find -type f -regex ".*[Tt]inker.*"  # (i)
+find -type f -iregex ".*tinker.*"    # (ii)
+find -type f -iregex ".*tinker.*" | sed 's/\(\.\/folder_name_1\/Folder_name_2\/\)/...\//'  # (iii)
+
+# (i): case sensitive regex (.* means any character one or more times)
+# (ii): case insensitive regex 
+# (iii): sed will remove "/folder_name_1/folder_name_2/" from the output and substitute with "..."
+
+```
 
 ```Bash
 
@@ -23,18 +39,6 @@ find -type f -iregex ".*file_name.*\.\(txt\|md\)"  # (iv)
 # (iv) same as i but including a file name
 
 ```
-
-```Bash
-
-# Look for file names
-find -type f -regex ".*[Tt]inker.*"
-find -type f -iregex ".*tinker.*" # case insensitive regex
-
-find -type f -iregex ".*tinker.*" | sed 's/\(\.\/folder_name_1\/Folder_name_2\/\)/...\//'
-# sed will remove "/folder_name_1/folder_name_2/" from the output and substitute with "..."
-
-```
-
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Example: searching for file extensions
