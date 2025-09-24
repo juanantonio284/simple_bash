@@ -30,6 +30,7 @@ There are four layout files in the `_layouts` folder:
 * `page.html`: layout for other pages (about, contacts, etc.)
 * `post.html`: layout for blog posts
 
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Solution
 
 ### 1
@@ -41,8 +42,22 @@ files.
 
 Now you can change the theme without triggering error messages and the site will be visible.
 
-Note that the website will fall back to use the default.html layout that is baked into in the gem of
-the new theme that you selected, so it may or may not have the functionality you require.
+Note that the website will fall back to use the `default.html` layout that is baked into in the gem
+of the new theme that you selected, so it may or may not have the functionality you require.
+
+**To locate a theme's files on your computer**:
+
+```Bash
+
+cd ~/path_to_site/my_site.github.io/
+
+# Get the location of the gem-based theme files:
+bundle info --path minima # instead of "minima" you can enter the name of any theme
+
+# For example, the Minima theme's files might be located in 
+# ~/path_to_site/my_site.github.io/vendor/bundle/ruby/3.2.0/gems/minima-2.5.1/
+
+```
 
 ### 2
 
@@ -51,6 +66,8 @@ basis for improving the functionality. I am using `jekyll-theme-tactile`, so cop
 from the Tactile repo to your `_layouts` folder.
 
 <!-- keeps going ... -->
+
+<!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 
 [link_1]: https://surfacedetail.blogspot.com/2019/04/github-pages-and-jekyll-themes.html
 [link_2]: https://stackoverflow.com/questions/42966262/change-theme-of-my-github-pages-and-pages-are-empty?rq=3
