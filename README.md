@@ -10,17 +10,14 @@ Notes on some basic utilities for the shell
 
 ### miscellaneous
 
-* `basic_utilities` contains tutorials on the following BASH utilities: `awk` `grep`, `sed`, `cat`,
-  `shred`
+* `basic_utilities` contains tutorials on the following BASH utilities: 
+  `awk`, `cat`, `grep`, `history`, `sed`, `shred`
   
-* `other_utilities` contains notes on: `find`, `nano`, `gs` (ghostscript), `gpg` (GNU privacy guard)
-
+* `other_utilities` contains notes on: 
+  `find`, `gs` (ghostscript), `gpg`, `nano`. 
 
 ### `guides`
 
-* `configuring_github_authentication.md`: detailed and practical instructions on how to configure
-  ssh keys with github (better organized and summarized than the official gh reference)
-  
 * `create_directory_with_given_structure.md`: given `directory_1`, find out which folders are inside
   it. Then, create `directory_2` and, inside it, create empty folders with same names and structure
   as those of `directory_1`. (Uses the `tree` and `xargs` utilities.)
@@ -34,10 +31,14 @@ Notes on some basic utilities for the shell
 * `run_custom_shell_scripts.md`: a tutorial on how to create and prepare a script so that it runs as
   a command in the shell
 
-* `using_the_bash_history.md`: basic usage of the bash history
-
 * `using_yt-dlp`: using the `yt-dlp` command-line utility to download video and audio from youtube
 
+### `guides_rare`
+
+* `configuring_github_authentication.md`: detailed and practical instructions on how to configure
+  ssh keys with github (better organized and summarized than the official gh reference)
+
+* `github_pages_and_jekyll_themes`
 
 ### `linux_package_mgmt`
 
@@ -47,14 +48,15 @@ Notes on some basic utilities for the shell
 
 * `apt_example_installing_R.md`: a guide on how to install R[^note_1] 
 
+* `theory.md`: basic package management in Linux (how programs are installed)
+
+* `upgrade_os.md`: notes on how to update the operating system
+
+* `snap_on_ubuntu.md`: notes on how snaps work on ubuntu and trying to fix a problem ...
+
 [^note_1]: (There's not much to learn about `apt`, to be fair, but it's a practical example of
 installing a program from start to finish. And, considering all the little tricks involved, such an
 example might actually be useful.)
-
-* `theory.md`: basic package management in Linux (how programs are installed)
-
-* `upgrade_os.md`: notes on an operating system update
-
 
 ### `my_shell_scripts`
 
