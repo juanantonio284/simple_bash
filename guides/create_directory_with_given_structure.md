@@ -9,11 +9,12 @@ Create `directory_2` and, inside it, create empty folders with same names and st
 ```Bash
 
 cd path/to/directory_1/
-tree -dfi --noreport | xargs -I{} mkdir -p "$HOME/path/to/directory_2/{}"
-# Note how it says $HOME and not ~ or something else
+tree -dfi --noreport | xargs -I{} mkdir -p "$HOME/path/to/directory_2/{}"  # i
 
-# Optional (verify)
-tree -a /path/to/directory_2/ 
+tree -a /path/to/directory_2/                                              # ii
+
+#  i: Note how it says $HOME and not ~ or something else
+# ii: Optional (verify)
 
 ```
 
