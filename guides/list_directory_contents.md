@@ -2,13 +2,13 @@
 
 ## TLDR
 
-1. Create script-file (see "An improvement ..." below)
+1. Create script-file (see "`An improvement ...`" section below), put in desired directory
 
 2. Run lines below
 
 ```Bash
 cd path/to/directory/
-ls -RF --group-directories-first | sed -f script2.sed > 0_folder_contents.md
+ls -RF --group-directories-first | sed -f path/to/script-file.sed > 0_folder_contents.md
 ```
 
 
@@ -32,12 +32,12 @@ See more on the `-F` flag [here][ls-F]
 
 ## An improvement: using the `sed` command to improve readability
 
-**1.** Create a script-file named `script2.sed` (or whatever you want) with commands for finding and
-  replacing patterns. 
+**1.** Create a script-file named `script-file.sed` (or whatever you want) with commands for finding and
+  replacing patterns. Put the file in desired directory.
 
 ```Bash
 cd path/to/directory/
-cat > script2.sed
+cat > script-file.sed
 
 # enter text below
 s@\.:@#\ Top\ Directory@
@@ -65,10 +65,10 @@ cd path/to/directory/
 
 # Option 1
 ls -RF --group-directories-first > 0_folder_contents.md
-sed -f script2.sed 0_folder_contents.md > clean_folder_contents.md
+sed -f path/to/script-file.sed 0_folder_contents.md > clean_folder_contents.md
 
 # Option 2 (all in one line)
-ls -RF --group-directories-first | sed -f script2.sed > 0_folder_contents.md
+ls -RF --group-directories-first | sed -f path/to/script-file.sed > 0_folder_contents.md
 
 ```
 
