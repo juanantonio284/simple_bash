@@ -14,7 +14,7 @@ Notes on some basic utilities for the shell
   `awk`, `cat`, `grep`, `history`, `sed`, `shred`
   
 * `other_utilities` contains notes on: 
-  `find`, `gs` (ghostscript), `gpg`, `nano`. 
+  `find`, `gs` (ghostscript), `gpg`, `nano`, `diff`
 
 ### `guides`
 
