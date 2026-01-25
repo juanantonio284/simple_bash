@@ -4,23 +4,22 @@
 
 ```Bash
 
+yt-dlp -U # always update yt-dlp
+
 cd /path/to/directory
 
-# Download video option 1
-yt-dlp -F --list-formats https://www.youtube.com/watch?v=...
-yt-dlp --format xxx+yyy https://www.youtube.com/watch?v=... # i
+# Video download option 1: download by selecting the video and audio options to control file size
+    yt-dlp -F --list-formats https://www.youtube.com/watch?v=...
+    yt-dlp --format xxx+yyy https://www.youtube.com/watch?v=...
+# xxx and yyy are the numbers to select desired video and audio tracks
 
-# Download video option 2
-yt-dlp https://www.youtube.com/watch?v=... # downloads best option (could be largest file size!)
+# Video download option 2: download best option (could be largest file size!)
+    yt-dlp https://www.youtube.com/watch?v=...
 
-# Download best audio
-yt-dlp --extract-audio --audio-format mp3 --audio-quality 0 https://www.youtube.com/watch?v=... # ii
-
-
-# i:  xxx and yyy are the numbers to select desired video and audio tracks
-# ii: Specify ffmpeg audio quality to use when converting the audio with -x. 
-#     Insert a value between 0 (best) and 10 (worst) for VBR or a specific bitrate like 128K
-#     (default 5)
+# Audio download
+    yt-dlp --extract-audio --audio-format mp3 --audio-quality 0 https://www.youtube.com/watch?v=...
+# Specify ffmpeg audio quality to use when converting the audio with -x. 
+# Insert a value between 0 (best) and 10 (worst) for VBR or a specific bitrate like 128K (default 5)
 
 ```
 
