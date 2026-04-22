@@ -28,7 +28,7 @@ using the most storage.
 296G  /
 ```
 
-Kept going and saw that it is the snaps folder (`/var/lib/snapd/snaps`) that uses the most data. 
+Looking inside `/var`, I found that the snaps folder (`/var/lib/snapd/snaps`) uses the most data. 
 
 Inside the folder, there seem to be old versions of programs and "system snaps" that have not been
 cleaned: `kf6-core22_42.snap, kf6-core22_43.snap, kf6-core24_27.snap, kf6-core24_22.snap,
@@ -96,15 +96,20 @@ LANG=C snap list --all | awk '/disabled/{print $1, $3}' |
     done
 ```
 
-<!-- Talk about how using the script above worked -->
+It works but doesn't delete all the old `core` and `gnome` snaps (e.g. `gnome-3-28-1804_198.snap`).
+
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## 3. 
 
-[This section is yet to be written and should probably be about deleting all of snap and instead using dpkg/apt]
+[This section is yet to be written and should probably be about deleting all of `snap` and instead
+using `dpkg/apt`]
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Further Reading
+
+* Seems like [this][itsfoss_clean_snap] is the first thing you should read. (I actually
+  haven't ...)
 
 * [This link][stack_1] contains a lot of information on this problem, including popey's script
   (used above) and [another version of the script][stack_1_a_maybe_improved].
@@ -113,7 +118,7 @@ LANG=C snap list --all | awk '/disabled/{print $1, $3}' |
 
 
 
-
+[itsfoss_clean_snap]: https://itsfoss.com/clean-snap-packages/
 [stack_1]: https://superuser.com/questions/1310825/how-to-remove-old-version-of-installed-snaps
 [stack_1_a]: https://superuser.com/a/1330590
 [stack_1_a_maybe_improved]: https://superuser.com/a/1610297
