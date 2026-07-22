@@ -84,13 +84,26 @@ These do similar things to the ones above (might be better in certain cases)
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈***≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
 ## Updating applications
 
-### TLDR
+### TLDR 1
 
 ```Bash
 
-# The commands below are optional and are independent from one another; you can run one or all in
-# any order (But it wouldn't make sense to upgrade without doing an update before; nor to do a
-# simulated upgrade after a real one.)
+sudo apt update && apt list --upgradable # (i)
+sudo apt upgrade
+
+# (i) if this operation is too slow (0% [waiting for headers]), try sudo apt clean and/or read this: 
+# https://askubuntu.com/questions/156650/apt-get-update-very-slow-stuck-at-waiting-for-headers
+
+```
+
+### TLDR 2
+
+```Bash
+
+# The commands below are optional and are independent from one another; you can run a single one, or
+# all (in any order). 
+# But it wouldn't make sense to upgrade without doing an update before; nor to do a simulated
+# upgrade after a real one.
 
 sudo apt update         # .... (i)
 apt list --upgradable   # .... (ii)
@@ -110,7 +123,7 @@ sudo apt upgrade        # .... (iv)
 
 ```
 
-### Explanation
+### Theory
 
 `apt` provides a simple way to install packages from the command line.
  
@@ -166,8 +179,6 @@ packages to install.
 
 Also consider `apt full-upgrade` to upgrade the entire operating system (replaces the 
 `apt-get dist-upgrade` option)
-
-
 
 
 <!-- ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ -->
