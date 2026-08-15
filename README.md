@@ -40,6 +40,10 @@ Notes on some basic utilities for the shell
 
 * `github_pages_and_jekyll_themes`
 
+* `wavemon`: a guide to understand [wavemon][git_wavemon], a wireless device monitoring application
+  that allows you to watch signal and noise levels, packet statistics, device configuration and
+  network parameters of your wireless network hardware.
+
 ### `linux_package_mgmt`
 
 * `apt_1_basics.md`: a basic tutorial on the `apt` utility for common tasks like installing,
@@ -54,7 +58,7 @@ Notes on some basic utilities for the shell
 
 * `snap_on_ubuntu.md`: notes on how snaps work on ubuntu and trying to fix a problem ...
 
-[^note_1]: (There's not much to learn about `apt`, to be fair, but it's a practical example of
+[^note_1]: (To be fair, this doesn't exactly teach much about `apt`; but it's a practical example of
 installing a program from start to finish. And, considering all the little tricks involved, such an
 example might actually be useful.)
 
@@ -77,5 +81,9 @@ example might actually be useful.)
 
 * `splitpdf`: a simple wrapper around Ghostscript to extract pages from a PDF file; original by
   Westley Weimer
+
+
+
+
 
 [shrinkpdf_link]: https://github.com/aklomp/shrinkpdf
